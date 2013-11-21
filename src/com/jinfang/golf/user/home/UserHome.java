@@ -3,11 +3,14 @@ package com.jinfang.golf.user.home;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jinfang.golf.cache.MCache;
 import com.jinfang.golf.user.dao.UserDAO;
 import com.jinfang.golf.user.model.User;
 
 @Component
 public class UserHome {
+    
+    private MCache<User> cache = MCache.getCache(MCache.POOL_CORE, "user", User.class);
 
 	@Autowired
 	private UserDAO dao;
