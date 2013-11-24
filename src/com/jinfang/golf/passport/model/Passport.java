@@ -183,20 +183,6 @@ public class Passport {
 	private boolean verifyTicket(PassportTicket ticket){
 		
 		String salt = dailySaltHome.getSalt(ticket.getCreateTime());
-//		System.out.println("verify salt:"+salt);
-//		System.out.println("verify uid:"+ticket.getUserId());
-//		System.out.println("verify createTime:"+ticket.getCreateTime());
-//		System.out.println("verify life:"+ticket.getLifeTime());
-//		System.out.println("verify sign:"+ticket.getSignatureText());
-//		System.out.println("verify content:"+ticket.getContentText());
-//
-//        System.out.println("verify true or false:"+signature.verify(ticket, salt));
-//        System.out.println("verify time:"+(ticket.getCreateTime() + (long)ticket.getLifeTime()*1000 > System.currentTimeMillis()));
-//
-//        
-
-
-
 		return (salt!=null && signature.verify(ticket, salt)) && (ticket.getCreateTime() + (long)ticket.getLifeTime()*1000 > System.currentTimeMillis());
 	}
 

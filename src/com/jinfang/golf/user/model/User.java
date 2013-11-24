@@ -21,9 +21,11 @@ public class User implements Serializable{
 	
 	private Integer playAge;
 	
-	private String desc;
+	private String description;
 	
 	private Double handicap;
+	
+	private Date createdTime;
 
     public Integer getId() {
         return id;
@@ -89,13 +91,6 @@ public class User implements Serializable{
         this.playAge = playAge;
     }
 
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
 
     public Double getHandicap() {
         return handicap;
@@ -104,6 +99,22 @@ public class User implements Serializable{
     public void setHandicap(Double handicap) {
         this.handicap = handicap;
     }
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
 	
 	
 	

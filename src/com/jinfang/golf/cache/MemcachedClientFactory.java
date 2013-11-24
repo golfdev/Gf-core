@@ -1,6 +1,7 @@
 package com.jinfang.golf.cache;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -65,7 +66,7 @@ public class MemcachedClientFactory {
 					Properties conf = new Properties();
 
 					try {
-						conf.load(MemcachedClientFactory.class.getResourceAsStream("server.properties"));
+						conf.load(MemcachedClientFactory.class.getResourceAsStream("/server.properties"));
 					} catch (IOException e) {
 						logger.error("config error : " + poolname);
 						e.printStackTrace();
@@ -100,13 +101,17 @@ public class MemcachedClientFactory {
 			addressList.add(new InetSocketAddress(host,port));
 			nb++;
 		}
+		String cacheEnable = configuration.getProperty("cacheEnable");
+		
 
 		try {
-			if(!"counter".equals(poolname)){
-				// 支持二进制协议
-				client = new MemcachedClient(new BinaryConnectionFactory(),addressList);
-			}else{
-				client = new MemcachedClient(addressList);
+			if("true".equals(cacheEnable)){
+				if(!"counter".equals(poolname)){
+					// 支持二进制协议
+					client = new MemcachedClient(new BinaryConnectionFactory(),addressList);
+				}else{
+					client = new MemcachedClient(addressList);
+				}
 			}
 			
 		

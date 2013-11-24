@@ -611,9 +611,6 @@ public class DateUtil {
 		return date.compareTo(new Date()) < 0;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(isBeforeNow(new Date()));
-	}
 
 	public static Date parseNoSecondFormat(String sDate) throws ParseException {
 		DateFormat dateFormat = new SimpleDateFormat(noSecondFormat);
@@ -637,6 +634,10 @@ public class DateUtil {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         return c.getTimeInMillis();
+    }
+    
+    public static void main(String[] args){
+    	System.out.println(timeIgnoreHMS(System.currentTimeMillis()));
     }
     
 }

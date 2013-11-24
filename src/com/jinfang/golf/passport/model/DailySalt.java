@@ -6,7 +6,7 @@ public class DailySalt implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Long createTime;
+	private Long createdTime;
 
 	private String salt;
 	
@@ -14,17 +14,17 @@ public class DailySalt implements Serializable {
 		
 	}
 	
-	public DailySalt(Long createTime, String salt){
-		this.createTime = createTime;
+	public DailySalt(Long createdTime, String salt){
+		this.createdTime = createdTime;
 		this.salt = salt;
 	}
 	
-	public Long getCreateTime() {
-		return createTime;
+	public Long getCreatedTime() {
+		return createdTime;
 	}
 	
-	public void setCreateTime(Long createTime) {
-		this.createTime = createTime;
+	public void setCreatedTime(Long createdTime) {
+		this.createdTime = createdTime;
 	}
 	
 	public String getSalt() {
