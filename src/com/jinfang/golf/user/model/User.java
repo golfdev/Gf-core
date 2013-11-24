@@ -3,6 +3,8 @@ package com.jinfang.golf.user.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gson.annotations.Expose;
+
 public class User implements Serializable{
 
 	private Integer id;
@@ -26,6 +28,8 @@ public class User implements Serializable{
 	private Double handicap;
 	
 	private Date createdTime;
+	
+	private String token;
 
     public Integer getId() {
         return id;
@@ -115,6 +119,16 @@ public class User implements Serializable{
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 	
 	
 	
