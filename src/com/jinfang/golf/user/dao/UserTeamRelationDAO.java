@@ -1,0 +1,31 @@
+package com.jinfang.golf.user.dao;
+
+import java.util.List;
+
+import net.paoding.rose.jade.annotation.DAO;
+import net.paoding.rose.jade.annotation.SQL;
+
+import com.jinfang.golf.user.model.UserTeamRelation;
+
+@DAO(catalog = "")
+public interface UserTeamRelationDAO {
+	//数据表名
+	public static String table_name = "user_team";
+	//数据表字段
+	public static String field = "user_id,team_id,created_time";	
+
+	@SQL(" insert into " + table_name + "(user_id,team_id,created_time) value(:1.userId,:1.teamId,now())")
+	public void save(UserTeamRelation userTeamRelation);
+	
+	@SQL(" select team_id from " + table_name +" where user_id=:1")
+	public List<Integer> getByUserId(Integer userId);
+	
+	
+	@SQL(" select user_id from " + table_name +" where team_id=:1")
+	public List<Integer> getByTeamId(String phone);
+	
+	
+	@SQL(" delete from " + table_name + " where user_id=:1 and team_id=:2")
+	public void deleteByUserIdAndTeamId(Integer userId,Integer teamId);
+	
+}

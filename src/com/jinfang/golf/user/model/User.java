@@ -30,6 +30,8 @@ public class User implements Serializable{
 	private Date createdTime;
 	
 	private String token;
+	
+	private String city;
 
     public Integer getId() {
         return id;
@@ -127,6 +129,14 @@ public class User implements Serializable{
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 	
 	
 	
