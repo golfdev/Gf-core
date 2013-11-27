@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.jinfang.golf.cache.MCache;
 import com.jinfang.golf.user.dao.UserDAO;
+import com.jinfang.golf.user.dao.UserDeviceDAO;
 import com.jinfang.golf.user.model.User;
 
 @Component
@@ -17,6 +18,9 @@ public class UserHome {
 	@Autowired
 	private UserDAO dao;
 	
+	@Autowired
+	private UserDeviceDAO userDeviceDao;
+	
 	/**
 	 * 保存用户信息
 	 * @param info
@@ -25,6 +29,15 @@ public class UserHome {
 	public int save(User user){
 		return dao.save(user).intValue();
 	}
+	
+	/**
+     * 保存用户设备信息
+     * @param info
+     * @return
+     */
+    public void saveUserDevice(Integer userId,String device){
+         userDeviceDao.save(userId,device);
+    }
 	
 	public User getByEmail(String email){
         return dao.getByEmail(email); 
@@ -45,6 +58,19 @@ public class UserHome {
 	}
 	
 	
+	public User getByDevice(String device){
+	    
+	    Integer userId = userDeviceDao.getByDevice(device);
+	    
+	    if(userId==null||userId==0){
+	        return null;
+	    }else{
+	        return getById(userId);
+	    }
+        
+    }
+	
+	
 	public User getById(int id){
 		User user = userCache.get(id);
 		if(user==null){
@@ -56,8 +82,8 @@ public class UserHome {
 		return user; 
 	}
 	
-	public User updateInfo(User user){
-		return dao.updateInfo(user);
+	public void updateForReg(User user){
+		 dao.updateForReg(user);
 	}
 
 }
