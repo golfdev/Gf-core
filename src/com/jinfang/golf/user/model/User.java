@@ -32,6 +32,8 @@ public class User implements Serializable{
 	private String token;
 	
 	private String city;
+	
+	private Integer status;
 
     public Integer getId() {
         return id;
@@ -136,6 +138,14 @@ public class User implements Serializable{
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 	
 	
