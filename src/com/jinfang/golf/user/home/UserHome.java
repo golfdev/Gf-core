@@ -85,5 +85,9 @@ public class UserHome {
 	public void updateForReg(User user){
 		 dao.updateForReg(user);
 	}
+	
+	public void updateHeadUrl(User user){
+		 dao.updateHeadUrl(user);
+	}
 
 }
