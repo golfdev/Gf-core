@@ -27,7 +27,7 @@ public interface UserDAO {
 	@SQL(" select " +  field + " from " + table_name + " where id=:1")
 	public User getById(int id);
 	
-	@SQL(" update " + table_name + " set phone=:1.phone,user_name=:1.userName,password=:1.passWord,status=:1.status where id=:1.id")
+	@SQL(" update " + table_name + " set phone=:1.phone,user_name=:1.userName,password=:1.passWord where id=:1.id")
 	public void updateForReg(User user);
 	
 	@SQL(" update " + table_name + " set head_url=:1.headUrl where id=:1.id")

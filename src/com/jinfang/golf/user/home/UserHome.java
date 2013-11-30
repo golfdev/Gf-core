@@ -87,7 +87,7 @@ public class UserHome {
 	}
 	
 	public void updateHeadUrl(User user){
-		 dao.updateHeadUrl(user);
+		dao.updateHeadUrl(user);
 	}
 
 }

@@ -15,7 +15,7 @@ public interface UserDeviceDAO {
 	public Identity save(Integer userId,String device);
 	
 	
-	@SQL(" select user_id from " + table_name +" where device=:1")
+	@SQL(" select " + field + " from " + table_name +" where device=:1")
     public Integer getByDevice(String device);
 	
 	

@@ -23,10 +23,6 @@ public class User implements Serializable{
 	
 	private Integer playAge;
 	
-	private Integer age;
-	
-	private String realName;
-	
 	private String description;
 	
 	private Double handicap;
