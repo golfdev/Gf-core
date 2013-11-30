@@ -17,8 +17,8 @@ public class UserHolder {
 	private ThreadLocal<User> userInfo = new ThreadLocal<User>();
 	
 
-	public ThreadLocal<PassportTicket> getPassportTicket() {
-		return passportTicket;
+	public PassportTicket getPassportTicket() {
+		return passportTicket.get();
 	}
 
 
