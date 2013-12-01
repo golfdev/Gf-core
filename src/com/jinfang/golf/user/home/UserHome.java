@@ -82,12 +82,14 @@ public class UserHome {
 		return user; 
 	}
 	
-	public void updateForReg(User user){
-		 dao.updateForReg(user);
+	public void updateUser(User user){
+		 dao.updateUser(user);
 	}
 	
 	public void updateHeadUrl(User user){
 		dao.updateHeadUrl(user);
+		userCache.delete(user.getId());
+		phoneCache.delete(user.getId());
 	}
 
 }
