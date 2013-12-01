@@ -1,5 +1,7 @@
 package com.jinfang.golf.user.home;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -90,6 +92,18 @@ public class UserHome {
 		dao.updateHeadUrl(user);
 		userCache.delete(user.getId());
 		phoneCache.delete(user.getId());
+	}
+	
+	public List<User> getAllUserList(int offset,int limit){
+		return dao.getAllUserList(offset, limit);
+	}
+	
+	public List<User> getAllUserListByStatus(int offset,int limit,int status){
+		return dao.getAllUserListByStatus(offset, limit,status);
+	}
+	
+	public List<User> getAllUserListByCity(int offset,int limit,String city){
+		return dao.getAllUserListByCity(offset, limit,city);
 	}
 
 }
