@@ -7,32 +7,46 @@ import com.google.gson.annotations.Expose;
 
 public class User implements Serializable{
 
+	@Expose
 	private Integer id;
 	
+	@Expose
 	private String userName;
 	
+	@Expose
 	private String passWord;
 	
+	@Expose
 	private String email;
 	
+	@Expose
 	private String phone;
 	
+	@Expose
 	private Integer gender;
 	
+	@Expose
 	private String headUrl;
 	
+	@Expose
 	private Integer playAge;
 	
+	@Expose
 	private String description;
 	
+	@Expose
 	private Double handicap;
 	
+	@Expose
 	private Date createdTime;
 	
+	@Expose
 	private String token;
 	
+	@Expose
 	private String city;
 	
+	@Expose
 	private Integer status;
 
     public Integer getId() {
