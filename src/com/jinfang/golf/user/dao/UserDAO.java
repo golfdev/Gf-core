@@ -13,7 +13,7 @@ public interface UserDAO {
 	//数据表名
 	public static String table_name = "user";
 	//数据表字段
-	public static String field = "id,user_name,password,email,phone,gender,head_url,play_age,handicap,description,created_time";	
+	public static String field = "id,user_name,password,email,phone,gender,head_url,play_age,handicap,description,status,created_time";	
 
 	@SQL(" insert into " + table_name + "(user_name,password,phone,status,created_time) value(:1.userName,:1.passWord,:1.phone,:1.status,now())")
 	public Identity save(User user);
@@ -46,5 +46,8 @@ public interface UserDAO {
 	
 	@SQL(" update " + table_name + " set token=:1.token where id=:1.id")
 	public void updateToken(User user);
+	
+	@SQL(" update " + table_name + " set status=:2 where id=:1")
+	public void updateStatus(int userId,int status);
 	
 }
