@@ -334,6 +334,7 @@ public class MCache<T> {
 	public boolean delete(String id) {
 		String key = generateKey(id);
 		try {
+			ensureOpen();
 			Future<Boolean> f = getClient().delete(key);
 			try {
 				boolean suc = f.get(5, TimeUnit.SECONDS);
@@ -348,9 +349,10 @@ public class MCache<T> {
 				return false;
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("Error while operating on key-prefix: "
+			logger.error("Error while operating on key-prefix: "
 					+ keyPrefix, e);
 		}
+		return false;
 	}
 
 	public long incr(String id, long inc) {

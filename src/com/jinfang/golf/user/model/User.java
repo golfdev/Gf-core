@@ -48,6 +48,8 @@ public class User implements Serializable{
 	
 	@Expose
 	private Integer status;
+	
+	private String source; //0表示android 1表示ios
 
     public Integer getId() {
         return id;
@@ -161,6 +163,14 @@ public class User implements Serializable{
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
 	
 	
 	

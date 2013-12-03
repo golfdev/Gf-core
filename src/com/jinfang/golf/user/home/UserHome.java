@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 import com.jinfang.golf.cache.MCache;
 import com.jinfang.golf.user.dao.UserDAO;
 import com.jinfang.golf.user.dao.UserDeviceDAO;
+import com.jinfang.golf.user.dao.UserTokenDAO;
 import com.jinfang.golf.user.model.User;
+import com.jinfang.golf.user.model.UserToken;
 
 @Component
 public class UserHome {
     
-    private MCache<User> phoneCache = MCache.getCache(MCache.POOL_CORE, "user_phone", User.class);
 
     private MCache<User> userCache = MCache.getCache(MCache.POOL_CORE, "user", User.class);
 
@@ -22,6 +23,11 @@ public class UserHome {
 	
 	@Autowired
 	private UserDeviceDAO userDeviceDao;
+	
+	@Autowired
+	private UserTokenDAO userTokenDao;
+	
+	
 	
 	/**
 	 * 保存用户信息
@@ -45,38 +51,31 @@ public class UserHome {
         return dao.getByEmail(email); 
     }
 	
+	public void uploadDeviceToken(Integer userId,String deviceToken){
+		userTokenDao.updateDeviceToken(userId, deviceToken);
+    }
 	
-	
-	public User getByPhone(String phone){
-		
-		User user = phoneCache.get(phone);
-		if(user==null){
-			user =  dao.getByPhone(phone); 
-			phoneCache.set(phone, user);
-		}else{
-			return user;
-		}
-		return user; 
+	public void updateTokenAndSource(Integer userId,String token,String source){
+		userTokenDao.save(userId,token,source);
+		userCache.delete(userId);
+
 	}
 	
 	
-	public User getByDevice(String device){
-	    
-	    Integer userId = userDeviceDao.getByDevice(device);
-	    
-	    if(userId==null||userId==0){
-	        return null;
-	    }else{
-	        return getById(userId);
-	    }
-        
-    }
+	
+	public User getByPhone(String phone){
+		return dao.getByPhone(phone);
+	}
+	
 	
 	
 	public User getById(int id){
 		User user = userCache.get(id);
 		if(user==null){
 			user =  dao.getById(id); 
+			UserToken temp = userTokenDao.getTokenAndSourceByUserId(id);
+			user.setToken(temp.getToken());
+			user.setSource(temp.getSource());
 			userCache.set(id, user);
 		}else{
 			return user;
@@ -86,12 +85,13 @@ public class UserHome {
 	
 	public void updateUser(User user){
 		 dao.updateUser(user);
+		 userCache.delete(user.getId());
+		 
 	}
 	
 	public void updateHeadUrl(User user){
 		dao.updateHeadUrl(user);
 		userCache.delete(user.getId());
-		phoneCache.delete(user.getId());
 	}
 	
 	public List<User> getAllUserList(int offset,int limit){

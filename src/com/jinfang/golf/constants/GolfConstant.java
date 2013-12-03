@@ -1,7 +1,9 @@
 package com.jinfang.golf.constants;
 
 public class GolfConstant {
-    public static final String APPKEY_VALUE = "jf_golf";
+    public static final String APPKEY_ANDROID_VALUE = "jf_golf_android";
+    public static final String APPKEY_IOS_VALUE = "jf_golf_ios";
+
     public static final String HEAD_PATH = "/opt/webapp/golf/Webcontent/img";
 //    public static final String HEAD_PATH = "/Users/zenglvlin/img";
 

@@ -44,4 +44,7 @@ public interface UserDAO {
 	@SQL(" update " + table_name + " set head_url=:1.headUrl where id=:1.id")
 	public void updateHeadUrl(User user);
 	
+	@SQL(" update " + table_name + " set token=:1.token where id=:1.id")
+	public void updateToken(User user);
+	
 }
