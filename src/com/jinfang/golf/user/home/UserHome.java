@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.jinfang.golf.cache.MCache;
+import com.jinfang.golf.user.dao.UserCentifyDAO;
 import com.jinfang.golf.user.dao.UserDAO;
 import com.jinfang.golf.user.dao.UserDeviceDAO;
 import com.jinfang.golf.user.dao.UserTokenDAO;
 import com.jinfang.golf.user.model.User;
+import com.jinfang.golf.user.model.UserCentify;
 import com.jinfang.golf.user.model.UserToken;
 
 @Component
@@ -26,6 +28,9 @@ public class UserHome {
 	
 	@Autowired
 	private UserTokenDAO userTokenDao;
+	
+	@Autowired
+	private UserCentifyDAO userCentifyDAO;
 	
 	
 	
@@ -86,7 +91,13 @@ public class UserHome {
 	public void updateUser(User user){
 		 dao.updateUser(user);
 		 userCache.delete(user.getId());
-		 
+	}
+	
+	public void saveCentifyInfo(UserCentify centify){
+		userCentifyDAO.save(centify);
+		dao.updateStatus(centify.getUserId(), 1);
+		userCache.delete(centify.getUserId());
+
 	}
 	
 	public void updateHeadUrl(User user){
