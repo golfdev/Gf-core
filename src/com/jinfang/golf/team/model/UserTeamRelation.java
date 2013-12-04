@@ -1,4 +1,4 @@
-package com.jinfang.golf.user.model;
+package com.jinfang.golf.team.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +8,8 @@ public class UserTeamRelation implements Serializable{
 	private Integer userId;
 	
 	private Integer teamId;
+	
+	private Integer isLeader;
 	
 	private Date createdTime;
 
@@ -33,6 +35,14 @@ public class UserTeamRelation implements Serializable{
 
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public Integer getIsLeader() {
+        return isLeader;
+    }
+
+    public void setIsLeader(Integer isLeader) {
+        this.isLeader = isLeader;
     }
 	
 	
