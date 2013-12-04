@@ -9,6 +9,8 @@ public class UserRelation implements Serializable{
 	
 	private Integer toUid;
 	
+	private Integer status;
+	
 	private Date createdTime;
 
 
@@ -35,6 +37,14 @@ public class UserRelation implements Serializable{
     public void setToUid(Integer toUid) {
         this.toUid = toUid;
     }
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
 	
 

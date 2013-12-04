@@ -49,6 +49,15 @@ public class User implements Serializable{
 	@Expose
 	private Integer status;
 	
+	@Expose
+	private Integer friendCount = 0;
+	
+	@Expose
+	private Integer followCount = 0;
+	
+	@Expose
+	private Integer fansCount = 0;
+	
 	private String source; //0表示android 1表示ios
 
     public Integer getId() {
@@ -170,6 +179,30 @@ public class User implements Serializable{
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	public Integer getFriendCount() {
+		return friendCount;
+	}
+
+	public void setFriendCount(Integer friendCount) {
+		this.friendCount = friendCount;
+	}
+
+	public Integer getFollowCount() {
+		return followCount;
+	}
+
+	public void setFollowCount(Integer followCount) {
+		this.followCount = followCount;
+	}
+
+	public Integer getFansCount() {
+		return fansCount;
+	}
+
+	public void setFansCount(Integer fansCount) {
+		this.fansCount = fansCount;
 	}
 	
 	

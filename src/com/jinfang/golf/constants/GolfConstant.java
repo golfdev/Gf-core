@@ -14,5 +14,11 @@ public class GolfConstant {
     public static final String ROOT_DOMAIN = "";
     public static final String PUSH_DOMAIN = "210.72.225.19";
     public static final int PUSH_PORT = 40010;
+    
+    public static final String FOLLOW_COUNT_KEY = "follow_count_";
+    public static final String FRIEND_COUNT_KEY = "friend_count_";
+    public static final String FANS_COUNT_KEY = "fans_count_";
+
+
 
 }
