@@ -20,7 +20,7 @@ public class UserOnlineManager {
 	 * 设置用户在线
 	 * @param userId
 	 */
-	public boolean setOnline(long userId, long appId) {
+	public boolean setOnline(int userId, int appId) {
 		UserOnline online = new UserOnline();
 		online.setUserId(userId);
 		online.setAppId(appId);
