@@ -22,7 +22,7 @@ public interface UserTeamRelationDAO {
 	
 	
 	@SQL(" select user_id from " + table_name +" where team_id=:1")
-	public List<Integer> getByTeamId(Integer teamId);
+	public List<Integer> getMemberIdListByTeamId(Integer teamId);
 	
 	
 	@SQL(" delete from " + table_name + " where user_id=:1 and team_id=:2")

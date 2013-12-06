@@ -18,7 +18,7 @@ import com.jinfang.golf.user.model.UserToken;
 public class UserHome {
     
 
-    private MCache<User> userCache = MCache.getCache(MCache.POOL_CORE, "user", User.class);
+//    private MCache<User> userCache = MCache.getCache(MCache.POOL_CORE, "user", User.class);
 
 	@Autowired
 	private UserDAO dao;
@@ -62,7 +62,7 @@ public class UserHome {
 	
 	public void updateTokenAndSource(Integer userId,String token,String source){
 		userTokenDao.save(userId,token,source);
-		userCache.delete(userId);
+//		userCache.delete(userId);
 
 	}
 	
@@ -75,34 +75,34 @@ public class UserHome {
 	
 	
 	public User getById(int id){
-		User user = userCache.get(id);
-		if(user==null){
-			user =  dao.getById(id); 
+//		User user = userCache.get(id);
+//		if(user==null){
+	        User user =  dao.getById(id); 
 			UserToken temp = userTokenDao.getTokenAndSourceByUserId(id);
 			user.setToken(temp.getToken());
 			user.setSource(temp.getSource());
-			userCache.set(id, user);
-		}else{
-			return user;
-		}
+//			userCache.set(id, user);
+//		}else{
+//			return user;
+//		}
 		return user; 
 	}
 	
 	public void updateUser(User user){
 		 dao.updateUser(user);
-		 userCache.delete(user.getId());
+//		 userCache.delete(user.getId());
 	}
 	
 	public void saveCentifyInfo(UserCentify centify){
 		userCentifyDAO.save(centify);
 		dao.updateStatus(centify.getUserId(), 1);
-		userCache.delete(centify.getUserId());
+//		userCache.delete(centify.getUserId());
 
 	}
 	
 	public void updateHeadUrl(User user){
 		dao.updateHeadUrl(user);
-		userCache.delete(user.getId());
+//		userCache.delete(user.getId());
 	}
 	
 	public List<User> getAllUserList(int offset,int limit){
