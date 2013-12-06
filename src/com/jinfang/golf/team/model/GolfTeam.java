@@ -7,7 +7,11 @@ public class GolfTeam implements Serializable{
 
 	private Integer id;
 	
-	private Integer leaderId;
+	private Integer creatorId;
+	
+	private String contacts;
+	
+	private String phone;
 	
 	private String name;
 	
@@ -27,13 +31,6 @@ public class GolfTeam implements Serializable{
 		this.id = id;
 	}
 
-	public Integer getLeaderId() {
-		return leaderId;
-	}
-
-	public void setLeaderId(Integer leaderId) {
-		this.leaderId = leaderId;
-	}
 
 
 	public String getLogo() {
@@ -75,6 +72,31 @@ public class GolfTeam implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 	
 	
 	
