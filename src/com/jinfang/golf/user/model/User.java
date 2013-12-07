@@ -23,19 +23,19 @@ public class User implements Serializable{
 	private String phone;
 	
 	@Expose
-	private Integer gender;
+	private Integer gender=0;
 	
 	@Expose
 	private String headUrl;
 	
 	@Expose
-	private Integer playAge;
+	private Integer playAge=0;
 	
 	@Expose
 	private String description;
 	
 	@Expose
-	private Double handicap;
+	private Integer handicap=0;
 	
 	@Expose
 	private Date createdTime;
@@ -132,11 +132,11 @@ public class User implements Serializable{
     }
 
 
-    public Double getHandicap() {
+    public Integer getHandicap() {
         return handicap;
     }
 
-    public void setHandicap(Double handicap) {
+    public void setHandicap(Integer handicap) {
         this.handicap = handicap;
     }
 
