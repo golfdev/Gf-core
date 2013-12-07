@@ -67,6 +67,10 @@ public class UserHome {
 	}
 	
 	
+	public String getDeviceToken(Integer userId){
+		return userTokenDao.getDeviceToken(userId);
+	}
+	
 	
 	public User getByPhone(String phone){
 		return dao.getByPhone(phone);

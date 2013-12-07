@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.jinfang.golf.team.dao.GolfTeamDAO;
 import com.jinfang.golf.team.dao.UserTeamRelationDAO;
 import com.jinfang.golf.team.model.GolfTeam;
-import com.jinfang.golf.user.model.User;
 
 @Component
 public class UserTeamHome {
@@ -35,6 +34,10 @@ public class UserTeamHome {
 	
 	public GolfTeam getGolfTeamById(Integer id){
 	    return golfTeamDAO.getGolfTeamById(id);
+	}
+	
+	public void updateGolfTeam(GolfTeam team){
+		golfTeamDAO.updateGolfTeam(team);
 	}
 	
 //	public List<User> getTeamMemberListById(Integer id){

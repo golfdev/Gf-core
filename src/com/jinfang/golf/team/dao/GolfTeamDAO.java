@@ -23,5 +23,8 @@ public interface GolfTeamDAO {
 	@SQL(" select "+field+" from " + table_name +" where id=:1")
     public GolfTeam getGolfTeamById(Integer id);
 	
+	@SQL(" update " + table_name +" set name=:1.name,logo=:1.logo,contacts=:1.contacts,phone=:1.phone,city=:1.city,club_name=:1.clubName where id=:1.id")
+	public void updateGolfTeam(GolfTeam team);
+	
 	
 }
