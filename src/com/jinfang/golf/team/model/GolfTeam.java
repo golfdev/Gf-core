@@ -3,20 +3,29 @@ package com.jinfang.golf.team.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gson.annotations.Expose;
+
 public class GolfTeam implements Serializable{
 
+	@Expose
 	private Integer id;
 	
+	@Expose
 	private Integer creatorId;
 	
+	@Expose
 	private String contacts;
 	
+	@Expose
 	private String phone;
 	
+	@Expose
 	private String name;
 	
+	@Expose
 	private String logo;
 	
+	@Expose
 	private String city;
 	
 	private String clubName;

@@ -104,6 +104,10 @@ public class UserHome {
 
 	}
 	
+	public UserCentify getUserCentify(Integer userId){
+		return userCentifyDAO.getUserCentify(userId);
+	}
+	
 	public void updateHeadUrl(User user){
 		dao.updateHeadUrl(user);
 //		userCache.delete(user.getId());
