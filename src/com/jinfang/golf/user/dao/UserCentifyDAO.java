@@ -15,5 +15,8 @@ public interface UserCentifyDAO {
 	@SQL(" replace into " + table_name + "(user_id,sfz_id,real_name,created_time) value(:1.userId,:1.sfzId,:1.realName,now())")
 	public void save(UserCentify centify);
 	
+	@SQL(" select " +field+" from " +table_name + " where user_id=:1")
+	public UserCentify getUserCentify(Integer userId);
+	
 	
 }

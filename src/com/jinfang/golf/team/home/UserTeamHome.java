@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.jinfang.golf.team.dao.GolfTeamDAO;
 import com.jinfang.golf.team.dao.UserTeamRelationDAO;
 import com.jinfang.golf.team.model.GolfTeam;
-import com.jinfang.golf.user.model.User;
+import com.jinfang.golf.team.model.UserTeamRelation;
 
 @Component
 public class UserTeamHome {
@@ -26,15 +26,24 @@ public class UserTeamHome {
 	}
 	
 	public void createGolfTeam(GolfTeam team){
-	    golfTeamDAO.save(team);
+	    int teamId =  golfTeamDAO.save(team).intValue();
+	    UserTeamRelation relation = new UserTeamRelation();
+	    relation.setUserId(team.getCreatorId());
+	    relation.setTeamId(teamId);
+	    relation.setIsLeader(1);
+	    userTeamRelationDAO.save(relation);
 	}
 	
-	public List<GolfTeam> getGolfTeamList(String city){
-	    return golfTeamDAO.getGolfTeamList(city);
+	public List<GolfTeam> getGolfTeamList(String city,Integer offset,Integer limit){
+	    return golfTeamDAO.getGolfTeamList(city,offset,limit);
 	}
 	
 	public GolfTeam getGolfTeamById(Integer id){
 	    return golfTeamDAO.getGolfTeamById(id);
+	}
+	
+	public void updateGolfTeam(GolfTeam team){
+		golfTeamDAO.updateGolfTeam(team);
 	}
 	
 //	public List<User> getTeamMemberListById(Integer id){

@@ -58,6 +58,13 @@ public class User implements Serializable{
 	@Expose
 	private Integer fansCount = 0;
 	
+	@Expose
+	private String realName;
+	
+	@Expose
+	private String sfzId;
+	
+	
 	private String source; //0表示android 1表示ios
 
     public Integer getId() {
@@ -203,6 +210,22 @@ public class User implements Serializable{
 
 	public void setFansCount(Integer fansCount) {
 		this.fansCount = fansCount;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getSfzId() {
+		return sfzId;
+	}
+
+	public void setSfzId(String sfzId) {
+		this.sfzId = sfzId;
 	}
 	
 	

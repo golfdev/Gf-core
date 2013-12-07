@@ -67,6 +67,10 @@ public class UserHome {
 	}
 	
 	
+	public String getDeviceToken(Integer userId){
+		return userTokenDao.getDeviceToken(userId);
+	}
+	
 	
 	public User getByPhone(String phone){
 		return dao.getByPhone(phone);
@@ -98,6 +102,10 @@ public class UserHome {
 		dao.updateStatus(centify.getUserId(), 1);
 //		userCache.delete(centify.getUserId());
 
+	}
+	
+	public UserCentify getUserCentify(Integer userId){
+		return userCentifyDAO.getUserCentify(userId);
 	}
 	
 	public void updateHeadUrl(User user){

@@ -22,5 +22,8 @@ public interface UserTokenDAO {
 	@SQL(" update user_token set device_token=:2 where user_id=:1")
 	public void updateDeviceToken(Integer userId,String deviceToken);
 	
+	@SQL(" select device_token where user_id=:1")
+	public String getDeviceToken(Integer userId);
+	
 	
 }
