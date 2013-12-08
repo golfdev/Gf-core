@@ -11,7 +11,7 @@ public class GolfConstant {
     
     public static final String DEFAULT_HEAD_URL = "/head/default_man.png";
     
-    public static final String ROOT_DOMAIN = "";
+    public static final String ROOT_DOMAIN = getRootDomain();
     public static final String PUSH_DOMAIN = "210.72.225.19";
     public static final int PUSH_PORT = 40010;
     
@@ -19,6 +19,11 @@ public class GolfConstant {
     public static final String FRIEND_COUNT_KEY = "friend_count_";
     public static final String FANS_COUNT_KEY = "fans_count_";
 
-
+    private static String getRootDomain() {
+    	if (System.getProperties().getProperty("os.name").toLowerCase().contains("windows")) {
+    		return "127.0.0.1";
+    	}
+    	return "210.72.225.19";
+    }
 
 }
