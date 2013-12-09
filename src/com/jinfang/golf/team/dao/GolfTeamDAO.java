@@ -13,12 +13,12 @@ public interface GolfTeamDAO {
 	//数据表名
 	public static String table_name = "golf_team";
 	//数据表字段
-	public static String field = "id,name,logo,creator_id,contacts,phone,city,created_time";	
+	public static String field = "id,name,logo,creator_id,contacts,phone,city,created_date,created_time";	
 
-	@SQL(" insert into " + table_name + "(name,logo,creator_id,contacts,phone,city,created_time) value(:1.name,:1.logo,:1.creatorId,:1.contacts,:1.phone,:1.city,now())")
+	@SQL(" insert into " + table_name + "(name,logo,creator_id,contacts,phone,city,created_date,created_time) value(:1.name,:1.logo,:1.creatorId,:1.contacts,:1.phone,:1.city,:1.createdDate,now())")
 	public Identity save(GolfTeam team);
 	
-	@SQL(" select "+field+" from " + table_name +" where city=:1 limit :2,:3")
+	@SQL(" select "+field+" from " + table_name +" where city=:1 order by created_time desc limit :2,:3")
 	public List<GolfTeam> getGolfTeamList(String city,Integer offset,Integer limit);
 	
 	@SQL(" select "+field+" from " + table_name +" where id=:1")
