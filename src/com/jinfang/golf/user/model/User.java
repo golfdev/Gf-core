@@ -3,7 +3,10 @@ package com.jinfang.golf.user.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.google.gson.annotations.Expose;
+import com.jinfang.golf.constants.GolfConstant;
 
 public class User implements Serializable{
 
@@ -23,19 +26,19 @@ public class User implements Serializable{
 	private String phone;
 	
 	@Expose
-	private Integer gender;
+	private Integer gender=0;
 	
 	@Expose
 	private String headUrl;
 	
 	@Expose
-	private Integer playAge;
+	private Integer playAge=0;
 	
 	@Expose
 	private String description;
 	
 	@Expose
-	private Double handicap;
+	private Double handicap=0.0;
 	
 	@Expose
 	private Date createdTime;
@@ -116,7 +119,12 @@ public class User implements Serializable{
     }
 
     public String getHeadUrl() {
-        return headUrl;
+    	if(StringUtils.isNotBlank(headUrl)){
+    		 return GolfConstant.HEAD_DOMAIN+headUrl;
+    	}else{
+    		 return GolfConstant.HEAD_DOMAIN+GolfConstant.DEFAULT_HEAD_URL;
+    	}
+       
     }
 
     public void setHeadUrl(String headUrl) {

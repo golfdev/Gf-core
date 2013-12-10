@@ -30,6 +30,9 @@ public class GolfTeam implements Serializable{
 	
 	private String clubName;
 	
+	@Expose
+	private Date createdDate;
+	
 	private Date createdTime;
 
 	public Integer getId() {
@@ -106,6 +109,14 @@ public class GolfTeam implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 	
 	
 	
