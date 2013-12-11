@@ -1,6 +1,7 @@
 package com.jinfang.golf.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
@@ -33,6 +34,9 @@ public interface UserDAO {
 	
 	@SQL(" select " +  field_private + " from " + table_name + " order by handicap limit :1,:2")
 	public List<User> getAllUserList(int offset,int limit);
+	
+	@SQL(" select " +  field_private + " from " + table_name + " where id in (:1)")
+	public Map<Integer,User> getUserMapByIds(List<Integer> userIds);
 	
 	@SQL(" select " +  field_private + " from " + table_name + " where status = :3 order by handicap limit :1,:2")
 	public List<User> getAllUserListByStatus(int offset,int limit,int status);
