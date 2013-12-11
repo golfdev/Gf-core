@@ -33,6 +33,9 @@ public class GolfTeam implements Serializable{
 	@Expose
 	private Date createdDate;
 	
+	@Expose
+	private String purpose;
+	
 	private Date createdTime;
 
 	public Integer getId() {
@@ -117,6 +120,14 @@ public class GolfTeam implements Serializable{
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
 	
 	
 	
