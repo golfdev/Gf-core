@@ -33,6 +33,24 @@ public class GolfTeam implements Serializable{
 	@Expose
 	private Date createdDate;
 	
+	@Expose
+	private String purpose;
+	
+	@Expose
+	private String description;
+	
+	@Expose
+	private Integer count;
+	
+	@Expose
+	private Integer isMember=0;
+	
+	@Expose
+	private String notice;
+	
+	@Expose
+	private Integer canEdit=0;
+	
 	private Date createdTime;
 
 	public Integer getId() {
@@ -116,6 +134,54 @@ public class GolfTeam implements Serializable{
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public Integer getCount() {
+		return count;
+	}
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+	public Integer getIsMember() {
+		return isMember;
+	}
+
+	public void setIsMember(Integer isMember) {
+		this.isMember = isMember;
+	}
+
+	public String getNotice() {
+		return notice;
+	}
+
+	public void setNotice(String notice) {
+		this.notice = notice;
+	}
+
+	public Integer getCanEdit() {
+		return canEdit;
+	}
+
+	public void setCanEdit(Integer canEdit) {
+		this.canEdit = canEdit;
 	}
 	
 	

@@ -20,9 +20,20 @@ public interface UserTeamRelationDAO {
 	@SQL(" select team_id from " + table_name +" where user_id=:1")
 	public List<Integer> getByUserId(Integer userId);
 	
+	@SQL(" select team_id from " + table_name +" where user_id=:1 and is_leader=0 order by created_time desc limit :2,:3")
+	public List<Integer> getJoinedByUserIdAndPage(Integer userId,Integer offset,Integer limit);
 	
-	@SQL(" select user_id from " + table_name +" where team_id=:1")
-	public List<Integer> getMemberIdListByTeamId(Integer teamId);
+	@SQL(" select team_id from " + table_name +" where user_id=:1 and is_leader=1 order by created_time desc limit :2,:3")
+	public List<Integer> getOwnedTeamIdByUserIdAndPage(Integer userId,Integer offset,Integer limit);
+	
+	
+	@SQL(" select user_id from " + table_name +" where team_id=:1 order by created_time limit :2,:3")
+	public List<Integer> getMemberIdListByTeamId(Integer teamId,Integer offset,Integer limit);
+	
+	@SQL(" select count(user_id) from " + table_name +" where team_id=:1")
+	public Integer getMemberCountByTeamId(Integer teamId);
+	
+	
 	
 	
 	@SQL(" delete from " + table_name + " where user_id=:1 and team_id=:2")

@@ -1,11 +1,13 @@
 package com.jinfang.golf.user.home;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
-import com.jinfang.golf.cache.MCache;
 import com.jinfang.golf.user.dao.UserCentifyDAO;
 import com.jinfang.golf.user.dao.UserDAO;
 import com.jinfang.golf.user.dao.UserDeviceDAO;
@@ -123,6 +125,21 @@ public class UserHome {
 	
 	public List<User> getAllUserListByCity(int offset,int limit,String city){
 		return dao.getAllUserListByCity(offset, limit,city);
+	}
+	
+	public List<User> getUserListByIds(List<Integer> userIds){
+		if(CollectionUtils.isEmpty(userIds)){
+			return null;
+		}
+		Map<Integer,User> userMap = dao.getUserMapByIds(userIds);
+	    List<User> userList = new ArrayList<User>();
+	    for(Integer userId:userIds){
+	    	if(userMap.containsKey(userId)){
+	    		userList.add(userMap.get(userId));
+	    	}
+	    }
+	    return userList;
+		
 	}
 
 }
