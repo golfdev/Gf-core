@@ -9,7 +9,7 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.group.model.Group;
 
-@DAO(catalog = "golf_group")
+@DAO(catalog = "golf_app")
 public interface GroupDAO {
 	//数据表名
 	public static String table_name = "`group`";
