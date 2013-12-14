@@ -8,7 +8,7 @@ import com.jinfang.golf.user.model.UserCentify;
 @DAO(catalog = "golf_app")
 public interface UserCentifyDAO {
 	//数据表名
-	public static String table_name = "user_device";
+	public static String table_name = "user_centify";
 	//数据表字段
 	public static String field = "user_id,sfz_id,real_name,created_time";	
 
