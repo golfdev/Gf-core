@@ -12,7 +12,7 @@ import com.jinfang.golf.group.model.Group;
 @DAO(catalog = "golf_group")
 public interface GroupDAO {
 	//数据表名
-	public static String table_name = "group";
+	public static String table_name = "`group`";
 	//数据表字段
 	public static String field = "group_id,name,time,type,user_count,creater_id,status,last_user_id,last_text,last_time";
 
