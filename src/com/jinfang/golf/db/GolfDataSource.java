@@ -4,12 +4,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLFeatureNotSupportedException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -303,10 +301,4 @@ public class GolfDataSource implements DataSource{
 
 		return ds;
     }
-
-	@Override
-	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

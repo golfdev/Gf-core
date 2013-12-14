@@ -131,7 +131,7 @@ public class UserHome {
 		if(CollectionUtils.isEmpty(userIds)){
 			return null;
 		}
-		Map<Integer,User> userMap = dao.getUserMapByIds(userIds);
+		Map<Integer,User> userMap = getUserMapByIds(userIds);
 	    List<User> userList = new ArrayList<User>();
 	    for(Integer userId:userIds){
 	    	if(userMap.containsKey(userId)){
@@ -139,7 +139,9 @@ public class UserHome {
 	    	}
 	    }
 	    return userList;
-		
+	}
+	public Map<Integer,User> getUserMapByIds(List<Integer> userIds) {
+		return dao.getUserMapByIds(userIds);
 	}
 
 }
