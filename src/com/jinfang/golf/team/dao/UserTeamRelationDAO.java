@@ -7,14 +7,14 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.team.model.UserTeamRelation;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface UserTeamRelationDAO {
 	//数据表名
 	public static String table_name = "user_team";
 	//数据表字段
 	public static String field = "user_id,team_id,is_leader,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_id,team_id,is_leader,created_time) value(:1.userId,:1.teamId,:1.isLeader,now())")
+	@SQL(" insert into " + table_name + "(user_id,team_id,is_leader,created_time) values(:1.userId,:1.teamId,:1.isLeader,now())")
 	public void save(UserTeamRelation userTeamRelation);
 	
 	@SQL(" select team_id from " + table_name +" where user_id=:1")

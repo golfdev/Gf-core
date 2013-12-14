@@ -7,7 +7,7 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.feed.model.GolfFeed;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface GolfFeedDAO {
 	//数据表名
 	public static String table_name = "golf_feed";

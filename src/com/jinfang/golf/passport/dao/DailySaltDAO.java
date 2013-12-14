@@ -5,14 +5,14 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.passport.model.DailySalt;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface DailySaltDAO {
 	//数据表名
 	public static String table_name = "daily_salt";
 	//数据表字段
 	public static String field = "created_time,salt";
 
-	@SQL(" insert ignore into " + table_name + "( " + field + " )value(:1.createdTime,:1.salt)")
+	@SQL(" insert ignore into " + table_name + "( " + field + " ) values (:1.createdTime,:1.salt)")
 	public void save(DailySalt salt);
 
 	

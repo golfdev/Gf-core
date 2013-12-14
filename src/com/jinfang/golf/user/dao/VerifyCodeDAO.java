@@ -11,7 +11,7 @@ import com.jinfang.golf.user.model.VerifyCode;
  * @author ZK
  *
  */
-@DAO(catalog="user")
+@DAO(catalog="golf_app")
 public interface VerifyCodeDAO {
 	public static String tableName="verify_code";
 	public static String fieldName="number,code,expried_time";
@@ -21,7 +21,7 @@ public interface VerifyCodeDAO {
 	 * @param verifyCode  要添加的verifyCode对象
 	 * @return 返回保存成功后的int数
 	 */
-	@SQL("insert into "+tableName+" ("+fieldName+") value(:1.number,:1.code,:1.expriedTime)")
+	@SQL("insert into "+tableName+" ("+fieldName+") values(:1.number,:1.code,:1.expriedTime)")
 	public int insert(VerifyCode verifyCode);
 	
 	/**

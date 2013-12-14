@@ -5,14 +5,14 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.user.model.UserToken;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface UserTokenDAO {
 	//数据表名
 	public static String table_name = "user_token";
 	//数据表字段
 	public static String field = "user_id,token,source,created_time";	
 
-	@SQL(" replace into " + table_name + "(user_id,token,source,created_time) value(:1,:2,:3,now())")
+	@SQL(" replace into " + table_name + "(user_id,token,source,created_time) values(:1,:2,:3,now())")
 	public void save(Integer userId,String token,String source);
 	
 	
