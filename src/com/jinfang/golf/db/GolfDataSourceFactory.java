@@ -96,7 +96,8 @@ public class GolfDataSourceFactory implements DataSourceFactory {
     
     private static GolfBizNameDBConfig getBizNameDBConfig(String bizName){
 
-		String json = conf.getProperty("db.database.config");
+        String pathString = "db.database.config."+bizName;
+		String json = conf.getProperty(pathString);
 		//先从ZooKeeper获取配置信息
 //		String json = "{\"mode\":1,\"servers\":[{\"type\":\"mysql\",\"database\":\"golf_app\",\"host\":\"127.0.0.1\",\"port\":3306,\"user\":\"root\",\"password\":\"\",\"wrflag\":\"w\",\"token\":\"Y\",\"status\":\"enabled\",\"initialSize\":1,\"maxActive\":16,\"maxWait\":10000}]}";
 		if(json == null){
