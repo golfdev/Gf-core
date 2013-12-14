@@ -4,14 +4,14 @@ import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
 import net.paoding.rose.jade.core.Identity;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface UserDeviceDAO {
 	//数据表名
 	public static String table_name = "user_device";
 	//数据表字段
 	public static String field = "user_id,device,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_id,device,created_time) value(:1,:2,now())")
+	@SQL(" insert into " + table_name + "(user_id,device,created_time) values(:1,:2,now())")
 	public Identity save(Integer userId,String device);
 	
 	

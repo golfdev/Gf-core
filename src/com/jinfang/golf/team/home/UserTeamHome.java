@@ -150,6 +150,10 @@ public class UserTeamHome {
 		golfTeamDAO.updateGolfTeam(team);
 	}
 	
+	public void updateGolfTeamNotice(GolfTeam team){
+		golfTeamDAO.updateNotice(team);
+	}
+	
 	public Integer getTeamMemberCount(Integer id){
 		Integer count = userTeamRelationDAO.getMemberCountByTeamId(id);
 		if(count==null){

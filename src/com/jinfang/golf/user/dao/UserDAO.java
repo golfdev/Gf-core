@@ -9,7 +9,7 @@ import net.paoding.rose.jade.core.Identity;
 
 import com.jinfang.golf.user.model.User;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface UserDAO {
 	//数据表名
 	public static String table_name = "user";
@@ -18,7 +18,7 @@ public interface UserDAO {
 
 	public static String field_private = "id,user_name,gender,head_url,play_age,handicap,description,status,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_name,password,phone,status,created_time) value(:1.userName,:1.passWord,:1.phone,:1.status,now())")
+	@SQL(" insert into " + table_name + "(user_name,password,phone,status,created_time) values(:1.userName,:1.passWord,:1.phone,:1.status,now())")
 	public Identity save(User user);
 	
 	@SQL(" select " + field + " from " + table_name +" where email=:1")

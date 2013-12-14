@@ -7,14 +7,14 @@ import net.paoding.rose.jade.annotation.SQL;
 
 import com.jinfang.golf.relation.model.UserRelation;
 
-@DAO(catalog = "")
+@DAO(catalog = "golf_app")
 public interface UserRelationDAO {
 	//数据表名
 	public static String table_name = "relation";
 	//数据表字段
 	public static String field = "from_uid,to_uid,status,created_time";	
 
-	@SQL(" insert into " + table_name + "(from_uid,to_uid,status,created_time) value(:1.fromUid,:1.toUid,:1.status,now())")
+	@SQL(" insert into " + table_name + "(from_uid,to_uid,status,created_time) values(:1.fromUid,:1.toUid,:1.status,now())")
 	public void save(UserRelation userRelation);
 	
 	@SQL(" select to_uid from " + table_name +" where from_uid=:1")
