@@ -12,6 +12,6 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
 http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
 	<bean id="jade.routerInterpreter" class="com.jinfang.golf.db.RouterInterpreter"></bean>
-	<bean id="jade.dataSourceFactory" class="com.jinfang.golf.db.GummyDataSourceFactory" ></bean>
+	<bean id="jade.dataSourceFactory" class="com.jinfang.golf.db.GolfDataSourceFactory" ></bean>
 	
 </beans>

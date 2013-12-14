@@ -1,13 +1,14 @@
 package com.jinfang.golf.db;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -22,6 +23,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import com.jinfang.golf.cache.MemcachedClientFactory;
 import com.jinfang.golf.db.exception.ConfiguartionException;
 
 /**
@@ -33,14 +35,12 @@ public class GolfDataSourceFactory implements DataSourceFactory {
 	
 	private static int instanceCount = 0;//for test
 	
-	//ZooKeeper维护的数据路径前缀
-	private static final String dbPathPrefix = "/configuration/dbInstance/";
-	private static final String tpPathPrefix = "/configuration/dbTablePartitions/";
-	
     private static Log logger = LogFactory.getLog(GolfDataSourceFactory.class);
     private static Gson gson = new Gson();
     private static JsonParser parser = new JsonParser();
     private static Object lock = new Object();
+    
+    private static Properties conf = new Properties();
     
     /**Key:bizName , Value:GummyDataSource */
     private static Map<String,GolfDataSource> gummyDsMap = new HashMap<String,GolfDataSource>();
@@ -48,8 +48,14 @@ public class GolfDataSourceFactory implements DataSourceFactory {
     public GolfDataSourceFactory(){
     	instanceCount++;
     	if(instanceCount > 3){
-    		logger.warn("ERROR ERROR ERROR: too many GummyDataSourceFactory, count:" + instanceCount);
+    		logger.warn("ERROR ERROR ERROR: too many GolfDataSourceFactory, count:" + instanceCount);
     	}
+    	try {
+			conf.load(GolfDataSourceFactory.class.getResourceAsStream("/server.properties"));
+		} catch (IOException e) {
+			logger.error("config error : ");
+			e.printStackTrace();
+		}
     }
     
     public DataSource getDataSource(Class<?> daoClass) {
@@ -78,7 +84,7 @@ public class GolfDataSourceFactory implements DataSourceFactory {
     			if(gummyDS == null){
     				GolfBizNameDBConfig dbCfg = getBizNameDBConfig(bizName);
     				String databaseName = dbCfg.getDatabaseName();
-    				List<GolfTablePartitionConfig> tablePartitionList = getTablePartitionConfigFromZookeeper(databaseName);
+    				List<GolfTablePartitionConfig> tablePartitionList = getTablePartitionConfig(databaseName);
     				gummyDS = new GolfDataSource(bizName, dbCfg, tablePartitionList);
     				gummyDsMap.put(bizName, gummyDS);
     			}
@@ -89,13 +95,14 @@ public class GolfDataSourceFactory implements DataSourceFactory {
     }
     
     private static GolfBizNameDBConfig getBizNameDBConfig(String bizName){
-    	String path = dbPathPrefix + bizName;
+
+		String json = conf.getProperty("db.config");
 		//先从ZooKeeper获取配置信息
-		String json = "{\"mode\":1,\"servers\":[{\"type\":\"mysql\",\"database\":\"golf_app\",\"host\":\"127.0.0.1\",\"port\":3306,\"user\":\"root\",\"password\":\"\",\"wrflag\":\"w\",\"token\":\"Y\",\"status\":\"enabled\",\"initialSize\":1,\"maxActive\":16,\"maxWait\":10000}]}";
+//		String json = "{\"mode\":1,\"servers\":[{\"type\":\"mysql\",\"database\":\"golf_app\",\"host\":\"127.0.0.1\",\"port\":3306,\"user\":\"root\",\"password\":\"\",\"wrflag\":\"w\",\"token\":\"Y\",\"status\":\"enabled\",\"initialSize\":1,\"maxActive\":16,\"maxWait\":10000}]}";
 		if(json == null){
 			//ZooKeeper没有配置
 			logger.error("not found Database Configuration, bizName: " + bizName);
-			throw new ConfiguartionException("Error occurs while getData from ZooKeeper(not found configration) ,path:" + path);
+			throw new ConfiguartionException("Error occurs while getData from file(not found configration) ");
 		}
 		//logger.info(json);
 		
@@ -103,14 +110,14 @@ public class GolfDataSourceFactory implements DataSourceFactory {
 			GolfBizNameDBConfig biznameDBCfg = gson.fromJson(json, GolfBizNameDBConfig.class);
 			return biznameDBCfg;
 		} catch (JsonSyntaxException e) {
-			throw new ConfiguartionException("Error occurs while getData from ZooKeeper(Json Format Error) ,path:" + path, e);
+			throw new ConfiguartionException("Error occurs while getData from file(Json Format Error) ,path:", e);
 		}
     }
     
-    /**从ZooKeeper获取散表信息*/
-    private static List<GolfTablePartitionConfig> getTablePartitionConfigFromZookeeper(String databaseName){
-    	String tablePartitionPath = tpPathPrefix + databaseName;
-		String json = "[{\"tableName\":\"topic_follower\",\"byColumn\":\"topic_id\",\"partitions\":100,\"targetPattern\":\"topic_follower_{0}\"}]";
+    private static List<GolfTablePartitionConfig> getTablePartitionConfig(String databaseName){
+    	String tableConfig = "db.table.partition."+databaseName;
+    	String json = conf.getProperty(tableConfig);
+//		String json = "[{\"tableName\":\"topic_follower\",\"byColumn\":\"topic_id\",\"partitions\":100,\"targetPattern\":\"topic_follower_{0}\"}]";
 
 		if(json == null){
 			//不存在这个节点，表示没有散表信息
@@ -131,7 +138,7 @@ public class GolfDataSourceFactory implements DataSourceFactory {
 			return tablePartitionList;
 		} catch (JsonSyntaxException e) {
 			//logger.error(json);
-			throw new ConfiguartionException("Error occurs while getData from ZooKeeper(Json Format Error) ,path:" + tablePartitionPath, e);
+			throw new ConfiguartionException("Error occurs while getData from File(Json Format Error) ",  e);
 		}
     }
     
