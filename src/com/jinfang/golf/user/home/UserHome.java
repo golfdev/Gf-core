@@ -85,8 +85,10 @@ public class UserHome {
 //		if(user==null){
 	        User user =  dao.getById(id); 
 			UserToken temp = userTokenDao.getTokenAndSourceByUserId(id);
+			if(temp!=null){
 			user.setToken(temp.getToken());
 			user.setSource(temp.getSource());
+			}
 //			userCache.set(id, user);
 //		}else{
 //			return user;
