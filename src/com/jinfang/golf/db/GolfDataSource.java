@@ -304,9 +304,7 @@ public class GolfDataSource implements DataSource{
 		return ds;
     }
 
-	@Override
 	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

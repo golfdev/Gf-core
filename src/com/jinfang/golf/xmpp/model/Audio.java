@@ -2,12 +2,19 @@ package com.jinfang.golf.xmpp.model;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 public class Audio implements Serializable {
 	private static final long serialVersionUID = -9000326310700431419L;
+	@Expose
 	private int audioId;
+	@Expose
 	private String audioUrl;
+	@Expose
 	private double duration;
+	@Expose
 	private int size;
+	
 	public int getAudioId() {
 		return audioId;
 	}
