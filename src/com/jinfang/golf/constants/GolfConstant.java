@@ -4,14 +4,14 @@ public class GolfConstant {
     public static final String APPKEY_ANDROID_VALUE = "jf_golf_android";
     public static final String APPKEY_IOS_VALUE = "jf_golf_ios";
 
-    public static final String HEAD_PATH = "/opt/webapp/golf/Webcontent/img";
-    public static final String AUDIO_PATH = "/opt/webapp/golf/Webcontent/audio";
+    public static final String IMAGE_PATH = "/opt/webapp/golf/WebContent/img";
+    public static final String AUDIO_PATH = "/opt/webapp/golf/WebContent/audio";
 //    public static final String HEAD_PATH = "/Users/zenglvlin/img";
 
-    public static final String HEAD_DOMAIN = "http://210.72.225.19:40011/img";
+    public static final String IMAGE_DOMAIN = "http://210.72.225.19:40011/img";
     public static final String AUDIO_DOMAIN = "http://210.72.225.19:40011/audio";
     
-    public static final String DEFAULT_HEAD_URL = "/head/default_man.png";
+    public static final String DEFAULT_HEAD_URL = "/img/default_man.png";
     
     public static final String ROOT_DOMAIN = getRootDomain();
     public static final String PUSH_DOMAIN = "210.72.225.19";

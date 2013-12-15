@@ -14,16 +14,16 @@ public class User implements Serializable{
 	private Integer id;
 	
 	@Expose
-	private String userName;
+	private String userName="";
 	
 	@Expose
-	private String passWord;
+	private String passWord="";
 	
 	@Expose
-	private String email;
+	private String email="";
 	
 	@Expose
-	private String phone;
+	private String phone="";
 	
 	@Expose
 	private Integer gender=0;
@@ -35,7 +35,7 @@ public class User implements Serializable{
 	private Integer playAge=0;
 	
 	@Expose
-	private String description;
+	private String description="";
 	
 	@Expose
 	private Double handicap=0.0;
@@ -44,13 +44,13 @@ public class User implements Serializable{
 	private Date createdTime;
 	
 	@Expose
-	private String token;
+	private String token="";
 	
 	@Expose
-	private String city;
+	private String city="";
 	
 	@Expose
-	private Integer status;
+	private Integer status=0;
 	
 	@Expose
 	private Integer friendCount = 0;
@@ -62,13 +62,13 @@ public class User implements Serializable{
 	private Integer fansCount = 0;
 	
 	@Expose
-	private String realName;
+	private String realName="";
 	
 	@Expose
-	private String sfzId;
+	private String sfzId="";
 	
 	
-	private String source; //0表示android 1表示ios
+	private String source=""; //0表示android 1表示ios
 
     public Integer getId() {
         return id;
@@ -119,11 +119,7 @@ public class User implements Serializable{
     }
 
     public String getHeadUrl() {
-    	if(StringUtils.isNotBlank(headUrl)){
-    		 return GolfConstant.HEAD_DOMAIN+headUrl;
-    	}else{
-    		 return GolfConstant.HEAD_DOMAIN+GolfConstant.DEFAULT_HEAD_URL;
-    	}
+    	return headUrl;
        
     }
 
