@@ -12,7 +12,10 @@ public class GolfConstant {
     public static final String IMAGE_DOMAIN = "http://210.72.225.19:40011/img";
     public static final String AUDIO_DOMAIN = "http://210.72.225.19:40011/audio";
     
-    public static final String DEFAULT_HEAD_URL = "/img/default_man.png";
+    public static final String DEFAULT_HEAD_URL = "/head/default_man.png";
+    
+    public static final String DEFAULT_TEAM_LOGO_URL = "/logo/default_team_logo.png";
+
     
     public static final String ROOT_DOMAIN = getRootDomain();
     public static final String PUSH_DOMAIN = "210.72.225.19";

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.jinfang.golf.team.dao.GolfTeamDAO;
+import com.jinfang.golf.team.dao.GolfTeamNoticeDAO;
 import com.jinfang.golf.team.dao.UserTeamApplyDAO;
 import com.jinfang.golf.team.dao.UserTeamRelationDAO;
 import com.jinfang.golf.team.model.GolfTeam;
+import com.jinfang.golf.team.model.GolfTeamNotice;
 import com.jinfang.golf.team.model.UserTeamApply;
 import com.jinfang.golf.team.model.UserTeamRelation;
 import com.jinfang.golf.user.home.UserHome;
@@ -32,6 +34,9 @@ public class UserTeamHome {
 	
 	@Autowired
 	private UserHome userHome;
+	
+	@Autowired
+	private GolfTeamNoticeDAO golfTeamNoticeDAO;
 	
 	
 	public void removeFromTeam(Integer userId,Integer teamId){
@@ -152,6 +157,10 @@ public class UserTeamHome {
 	
 	public void updateGolfTeamNotice(GolfTeam team){
 		golfTeamDAO.updateNotice(team);
+		GolfTeamNotice notice = new GolfTeamNotice();
+		notice.setTeamId(team.getId());
+		notice.setNotice(team.getNotice());
+		golfTeamNoticeDAO.save(notice);
 	}
 	
 	public Integer getTeamMemberCount(Integer id){
