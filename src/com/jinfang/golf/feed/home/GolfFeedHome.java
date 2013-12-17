@@ -25,7 +25,7 @@ public class GolfFeedHome {
 	
 
 	public List<GolfFeed> getGolfFeedList(Integer userId){
-		List<Integer> followList = userRelationHome.getFollowList(userId);
+		List<Integer> followList = userRelationHome.getFollowList(userId,0,1000);
 		return golfFeedDAO.getUserFeedList(followList);
 	}
 	

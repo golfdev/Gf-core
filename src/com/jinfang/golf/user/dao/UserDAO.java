@@ -28,6 +28,9 @@ public interface UserDAO {
 	@SQL(" select " + field + " from " + table_name +" where phone=:1")
 	public User getByPhone(String phone);
 	
+	@SQL(" select " + field_private + " from " + table_name +" where user_name like ':1%'")
+	public List<User> searchByName(String name);
+	
 	
 	@SQL(" select " +  field + " from " + table_name + " where id=:1")
 	public User getById(int id);

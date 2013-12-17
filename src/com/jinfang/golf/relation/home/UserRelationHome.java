@@ -5,59 +5,73 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.jinfang.golf.relation.dao.UserRelationDAO;
-import com.jinfang.golf.relation.model.UserRelation;
+import com.jinfang.golf.relation.dao.UserFollowRelationDAO;
+import com.jinfang.golf.relation.dao.UserFollowedRelationDAO;
+import com.jinfang.golf.relation.dao.UserFriendRelationDAO;
+import com.jinfang.golf.relation.model.UserFollowRelation;
 
 @Component
 public class UserRelationHome {
     
 	@Autowired
-	private UserRelationDAO userRelationDAO;
+	private UserFollowRelationDAO userFollowRelationDAO;
+	
+	@Autowired
+	private UserFollowedRelationDAO userFollowedRelationDAO;
+	
+	@Autowired
+	private UserFriendRelationDAO userFriendRelationDAO;
 	
 	
 	public void removeRelation(Integer fromUid,Integer toUid){
-	    userRelationDAO.deleteRelation(fromUid, toUid);
-		int temp = userRelationDAO.getUserRelation(toUid,fromUid);
+		userFollowRelationDAO.deleteRelation(fromUid, toUid);
+		int temp = userFollowRelationDAO.getRelationCount(toUid,fromUid);
 		if(temp>0){
-			userRelationDAO.updateStatus(toUid, fromUid, 0);
+			userFollowRelationDAO.updateRelation(toUid, fromUid, 0);
 		}
+		
+		userFollowedRelationDAO.deleteRelation(toUid, fromUid);
 
 	}
 	
-	public void addRelation(UserRelation userRelation){
+	public void addRelation(UserFollowRelation userRelation){
 		
-		int count = userRelationDAO.getUserRelation(userRelation.getFromUid(),userRelation.getToUid());
-		if(count==0){
-			int temp = userRelationDAO.getUserRelation(userRelation.getToUid(),userRelation.getFromUid());
+			Integer temp = userFollowRelationDAO.getRelationCount(userRelation.getGuest(),userRelation.getHost());
 			if(temp==0){
 				userRelation.setStatus(0);
 			}else{
 				userRelation.setStatus(1);
-				userRelationDAO.updateStatus(userRelation.getToUid(), userRelation.getFromUid(), 1);
+				userFollowRelationDAO.updateRelation(userRelation.getGuest(), userRelation.getHost(), 1);
 			}
-			userRelationDAO.save(userRelation);
-		}
+			userFollowRelationDAO.save(userRelation);
+			userFollowedRelationDAO.save(userRelation);
+
 		
 	}
 	
 	public Integer getFollowCount(Integer userId){
-		return userRelationDAO.getFollowCountByFromUid(userId);
+		return userFollowRelationDAO.getFollowCountByFromUid(userId);
 	}
 	
 	public Integer getFansCount(Integer userId){
-		return userRelationDAO.getFansCountByToUid(userId);
+		return userFollowedRelationDAO.getFansCountByToUid(userId);
 	}
 	
 	public Integer getFriendCount(Integer userId){
-		return userRelationDAO.getFansCountByToUid(userId);
+		return userFollowRelationDAO.getFriendCountByFromUid(userId);
 	}
 	
-	public Integer getFriendCountByFromUid(Integer userId){
-		return userRelationDAO.getFriendCountByFromUid(userId);
+	public List<Integer> getFollowList(Integer userId,Integer offset,Integer limit){
+		return userFollowRelationDAO.getFollowListByFromUid(userId,offset,limit);
 	}
 	
-	public List<Integer> getFollowList(Integer userId){
-		return userRelationDAO.getFollowListByFromUid(userId);
+	public List<Integer> getFansList(Integer userId,Integer offset,Integer limit){
+		return userFollowedRelationDAO.getFansListByToUid(userId,offset,limit);
+	}
+	
+	public List<Integer> getFriendList(Integer userId,Integer offset,Integer limit){
+		return userFollowRelationDAO.getFriendListByFromUid(userId,offset,limit);
+
 	}
 	
 	

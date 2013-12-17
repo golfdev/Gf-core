@@ -3,11 +3,11 @@ package com.jinfang.golf.relation.model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserRelation implements Serializable{
+public class UserFollowRelation implements Serializable{
 
-	private Integer fromUid;
+	private Integer host;
 	
-	private Integer toUid;
+	private Integer guest;
 	
 	private Integer status;
 	
@@ -22,21 +22,21 @@ public class UserRelation implements Serializable{
         this.createdTime = createdTime;
     }
 
-    public Integer getFromUid() {
-        return fromUid;
-    }
+	public Integer getHost() {
+		return host;
+	}
 
-    public void setFromUid(Integer fromUid) {
-        this.fromUid = fromUid;
-    }
+	public void setHost(Integer host) {
+		this.host = host;
+	}
 
-    public Integer getToUid() {
-        return toUid;
-    }
+	public Integer getGuest() {
+		return guest;
+	}
 
-    public void setToUid(Integer toUid) {
-        this.toUid = toUid;
-    }
+	public void setGuest(Integer guest) {
+		this.guest = guest;
+	}
 
 	public Integer getStatus() {
 		return status;
@@ -46,6 +46,7 @@ public class UserRelation implements Serializable{
 		this.status = status;
 	}
 
+    
 	
 
 	
