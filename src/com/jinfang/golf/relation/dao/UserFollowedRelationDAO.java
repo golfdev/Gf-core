@@ -24,7 +24,7 @@ public interface UserFollowedRelationDAO {
 	@SQL(" select count(guest) from " + table_name +" where host=:1")
 	public Integer getFansCountByToUid(Integer toUid);
 	
-	@SQL(" delete from " + table_name + " where from_uid=:1 and to_uid=:2")
+	@SQL(" delete from " + table_name + " where host=:1 and guest=:2")
 	public void deleteRelation(Integer fromUid,Integer toUid);
 	
 	
