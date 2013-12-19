@@ -129,6 +129,10 @@ public class UserHome {
 		return dao.getAllUserListByCity(offset, limit,city);
 	}
 	
+	public List<User> getAllUserListByCityAndStatus(int offset,int limit,String city,int status){
+		return dao.getAllUserListByCity(offset, limit,city);
+	}
+	
 	public List<User> getUserListByIds(List<Integer> userIds){
 		if(CollectionUtils.isEmpty(userIds)){
 			return null;

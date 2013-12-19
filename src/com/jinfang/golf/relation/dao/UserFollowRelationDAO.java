@@ -26,6 +26,9 @@ public interface UserFollowRelationDAO {
 	@SQL(" select count(1) from " + table_name +" where host=:1 and guest=:2")
 	public Integer getRelationCount(Integer host,Integer guest);
 	
+	@SQL(" select guest from " + table_name +" where host=:1 and guest in (:2)")
+	public List<Integer> getFollowListBatch(Integer host,List<Integer> guestList);
+	
 	@SQL(" update " + table_name +" set status = :3 where host=:1 and guest=:2")
 	public void updateRelation(Integer host,Integer guest,Integer status);
 	

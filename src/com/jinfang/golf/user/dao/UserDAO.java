@@ -35,17 +35,20 @@ public interface UserDAO {
 	@SQL(" select " +  field + " from " + table_name + " where id=:1")
 	public User getById(int id);
 	
-	@SQL(" select " +  field_private + " from " + table_name + " order by handicap limit :1,:2")
+	@SQL(" select " +  field_private + " from " + table_name + " order by created_time desc limit :1,:2")
 	public List<User> getAllUserList(int offset,int limit);
 	
 	@SQL(" select " +  field_private + " from " + table_name + " where id in (:1)")
 	public Map<Integer,User> getUserMapByIds(List<Integer> userIds);
 	
-	@SQL(" select " +  field_private + " from " + table_name + " where status = :3 order by handicap limit :1,:2")
+	@SQL(" select " +  field_private + " from " + table_name + " where status = :3 order by created_time desc limit :1,:2")
 	public List<User> getAllUserListByStatus(int offset,int limit,int status);
 	
-	@SQL(" select " +  field_private + " from " + table_name + " where city = :3 order by handicap limit :1,:2")
+	@SQL(" select " +  field_private + " from " + table_name + " where city = :3 order by created_time desc limit :1,:2")
 	public List<User> getAllUserListByCity(int offset,int limit,String city);
+	
+	@SQL(" select " +  field_private + " from " + table_name + " where city = :3 and status=:4 order by created_time desc limit :1,:2")
+	public List<User> getAllUserListByCity(int offset,int limit,String city,int status);
 	
 	@SQL(" update " + table_name + " set user_name=:1.userName,gender=:1.gender,city=:1.city,description=:1.description where id=:1.id")
 	public void updateUser(User user);

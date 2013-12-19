@@ -67,6 +67,9 @@ public class User implements Serializable{
 	@Expose
 	private String sfzId="";
 	
+	@Expose
+	private Integer isFollowed = 0;
+	
 	
 	private String source=""; //0表示android 1表示ios
 
@@ -230,6 +233,14 @@ public class User implements Serializable{
 
 	public void setSfzId(String sfzId) {
 		this.sfzId = sfzId;
+	}
+
+	public Integer getIsFollowed() {
+		return isFollowed;
+	}
+
+	public void setIsFollowed(Integer isFollowed) {
+		this.isFollowed = isFollowed;
 	}
 	
 	
