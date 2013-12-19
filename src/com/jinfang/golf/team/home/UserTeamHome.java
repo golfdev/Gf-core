@@ -193,6 +193,14 @@ public class UserTeamHome {
 			
 	}
 	
+	public Integer getTotalTeamCount(){
+		return golfTeamDAO.getTotalTeamCount();
+	}
+	
+	public List<GolfTeam> getAllGolfTeamList(Integer offset,Integer limit){
+		return golfTeamDAO.getAllGolfTeamList(offset, limit);
+	}
+	
 	/**
 	 * 保存入队申请
 	 * @param apply

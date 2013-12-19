@@ -38,6 +38,9 @@ public interface UserDAO {
 	@SQL(" select " +  field_private + " from " + table_name + " order by created_time desc limit :1,:2")
 	public List<User> getAllUserList(int offset,int limit);
 	
+	@SQL(" select count(1) from " + table_name )
+	public Integer getTotalUserCount();
+	
 	@SQL(" select " +  field_private + " from " + table_name + " where id in (:1)")
 	public Map<Integer,User> getUserMapByIds(List<Integer> userIds);
 	

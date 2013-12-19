@@ -21,5 +21,8 @@ public interface GolfClubDAO {
 	@SQL(" select "+field+" from " + table_name + " where city=:1 order by created_time desc limit :2,:3 ")
 	public List<GolfClub> getGolfClubList(String city,Integer offset,Integer limit);
 	
+	
+	@SQL(" select "+field+" from " + table_name + " where id=:1 ")
+	public GolfClub getGolfClub(Integer id);
 
 }

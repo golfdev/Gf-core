@@ -96,6 +96,10 @@ public class UserHome {
 		return user; 
 	}
 	
+	public Integer getTotalUserCount(){
+		return dao.getTotalUserCount();
+	}
+	
 	public void updateUser(User user){
 		 dao.updateUser(user);
 //		 userCache.delete(user.getId());

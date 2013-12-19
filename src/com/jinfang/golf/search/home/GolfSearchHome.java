@@ -1,7 +1,9 @@
 package com.jinfang.golf.search.home;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.collections.MapUtils;
@@ -11,6 +13,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -35,7 +38,7 @@ public class GolfSearchHome {
     
     public List<User> searchUserList(String keyWord,Integer offset,Integer limit){
         
-        SolrServer solrServer = SolrServerFactory.getSolrServer();
+        SolrServer solrServer = SolrServerFactory.getUserSolrServer();
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("user_name:"+keyWord);
         solrQuery.setFields("id");
@@ -57,7 +60,7 @@ public class GolfSearchHome {
     
     public List<GolfTeam> searchTeamList(String keyWord,Integer offset,Integer limit){
         
-        SolrServer solrServer = SolrServerFactory.getSolrServer();
+        SolrServer solrServer = SolrServerFactory.getGolfTeamSolrServer();
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("team_name:"+keyWord);
         solrQuery.setFields("id");
@@ -75,6 +78,58 @@ public class GolfSearchHome {
         }
         return teamList;
         
+    }
+    
+    
+    public void fullImportUser(){
+        SolrServer solrServer = SolrServerFactory.getUserSolrServer();
+
+    	Integer count = userHome.getTotalUserCount();
+    	
+    	Integer size = 1000;
+    	
+    	Integer num = count/size+1;
+    	
+    	int i = 0;
+    	while(i<num){
+    		List<User> userList = userHome.getAllUserList(i*size, size);
+    		List<SolrInputDocument>  docList = userToSolrDoc(userList);
+    		try {
+				solrServer.add(docList);
+				solrServer.commit();
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		i++;
+    	}
+    }
+    
+    
+    public void fullImportTeam(){
+        SolrServer solrServer = SolrServerFactory.getGolfTeamSolrServer();
+
+    	Integer count = userTeamHome.getTotalTeamCount();
+    	
+    	Integer size = 1000;
+    	
+    	Integer num = count/size+1;
+    	
+    	int i = 0;
+    	while(i<num){
+    		List<GolfTeam> teamList = userTeamHome.getAllGolfTeamList(i*size, size);
+    		List<SolrInputDocument>  docList = teamToSolrDoc(teamList);
+    		try {
+				solrServer.add(docList);
+				solrServer.commit();
+			} catch (SolrServerException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    		i++;
+    	}
     }
     
     private List<User> transformToUser(QueryResponse queryResponse){
@@ -114,6 +169,29 @@ public class GolfSearchHome {
         }
         return teamList;
     }    
+    
+    
+    private List<SolrInputDocument>  userToSolrDoc(List<User> userList){
+    	List<SolrInputDocument>  docList = new ArrayList<SolrInputDocument> ();
+    	for(User user:userList){
+    		SolrInputDocument doc = new SolrInputDocument();
+    		doc.addField("id", user.getId());
+    		doc.addField("user_name", user.getUserName());
+    		docList.add(doc);
+    	}
+    	return docList;
+    }
+    
+    private List<SolrInputDocument>  teamToSolrDoc(List<GolfTeam> teamList){
+    	List<SolrInputDocument>  docList = new ArrayList<SolrInputDocument> ();
+    	for(GolfTeam team:teamList){
+    		SolrInputDocument doc = new SolrInputDocument();
+    		doc.addField("id", team.getId());
+    		doc.addField("team_name", team.getName());
+    		docList.add(doc);
+    	}
+    	return docList;
+    }
     
     
     
