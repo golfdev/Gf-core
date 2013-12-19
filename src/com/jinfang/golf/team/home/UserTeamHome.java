@@ -104,6 +104,26 @@ public class UserTeamHome {
 		
 	}
 	
+	
+	public List<GolfTeam> getTeamListByIds(List<Integer> teamIds){
+        if(CollectionUtils.isEmpty(teamIds)){
+            return null;
+        }
+        Map<Integer,GolfTeam> teamMap = getTeamMapByIds(teamIds);
+        List<GolfTeam> teamList = new ArrayList<GolfTeam>();
+        for(Integer teamId:teamIds){
+            if(teamMap.containsKey(teamId)){
+                teamList.add(teamMap.get(teamId));
+            }
+        }
+        return teamList;
+    }
+	
+	
+	public Map<Integer,GolfTeam> getTeamMapByIds(List<Integer> teamIds) {
+        return golfTeamDAO.getGolfTeamListByIds(teamIds);
+    }
+	
 	public GolfTeam getGolfTeamById(Integer id){
 		GolfTeam team = golfTeamDAO.getGolfTeamById(id);
 		return team;
