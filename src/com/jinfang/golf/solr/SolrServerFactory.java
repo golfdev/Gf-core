@@ -16,29 +16,31 @@ public class SolrServerFactory {
     public static final String KEY_CRM_SOLR_CLOUD_HOST = "crm.solr.cloud.host";// crm solr host
 
 
-    private static HttpSolrServer httpServer;
+    private static HttpSolrServer userServer;
+    private static HttpSolrServer teamServer;
+
 
     public static HttpSolrServer getUserSolrServer() {
-        if (httpServer == null) {
-            httpServer = new HttpSolrServer("http://127.0.0.1:8983/solr/user");
-            httpServer.setConnectionTimeout(100);
-            httpServer.setDefaultMaxConnectionsPerHost(100);
-            httpServer.setMaxTotalConnections(100);
-            httpServer.setRequestWriter(new BinaryRequestWriter());
+        if (userServer == null) {
+        	userServer = new HttpSolrServer("http://127.0.0.1:8983/solr/user");
+        	userServer.setConnectionTimeout(100);
+        	userServer.setDefaultMaxConnectionsPerHost(100);
+        	userServer.setMaxTotalConnections(100);
+        	userServer.setRequestWriter(new BinaryRequestWriter());
         }
-        return httpServer;
+        return userServer;
     }
     
     public static HttpSolrServer getGolfTeamSolrServer() {
-        if (httpServer == null) {
-            httpServer = new HttpSolrServer("http://127.0.0.1:8983/solr/#/team");
-            httpServer.setConnectionTimeout(100);
-            httpServer.setDefaultMaxConnectionsPerHost(100);
-            httpServer.setMaxTotalConnections(100);
-            httpServer.setRequestWriter(new BinaryRequestWriter());
+        if (teamServer == null) {
+        	teamServer = new HttpSolrServer("http://127.0.0.1:8983/solr/team");
+        	teamServer.setConnectionTimeout(100);
+        	teamServer.setDefaultMaxConnectionsPerHost(100);
+        	teamServer.setMaxTotalConnections(100);
+        	teamServer.setRequestWriter(new BinaryRequestWriter());
         }
         
-        return httpServer;
+        return teamServer;
     }
 
 }

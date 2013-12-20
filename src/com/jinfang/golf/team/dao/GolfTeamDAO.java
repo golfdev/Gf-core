@@ -37,7 +37,7 @@ public interface GolfTeamDAO {
 	@SQL(" select count(1) from " + table_name)
 	public Integer getTotalTeamCount();
 	
-	@SQL(" select "+field+" from " + table_name +" order by created_time desc limit :2,:3")
+	@SQL(" select "+field+" from " + table_name +" order by created_time desc limit :1,:2")
 	public List<GolfTeam> getAllGolfTeamList(Integer offset,Integer limit);
 	
 	
