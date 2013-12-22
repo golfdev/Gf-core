@@ -14,7 +14,7 @@ public interface GolfClubDAO {
 	//数据表字段
 	public static String field = "id,name,logo,contacts,phone,city,address,market_price,centify_price,un_centify_price,description,about_club,created_time";
 
-	@SQL(" insert into " + table_name + "( name,logo,contacts,phone,city,address,market_price,centify_price,uncentify_price,description,about_club,created_time )values(:1name,:1:logo,:1.contacts,:1.phone,:1.city,:1.address,:1.marketPrice,:1:centifyPrice,:1.unCentifyPrice,:1.description,:1.aboutClub,now())")
+	@SQL(" insert into " + table_name + "( name,logo,contacts,phone,city,address,market_price,centify_price,uncentify_price,description,about_club,created_time )values(:1.name,:1.logo,:1.contacts,:1.phone,:1.city,:1.address,:1.marketPrice,:1:centifyPrice,:1.unCentifyPrice,:1.description,:1.aboutClub,now())")
 	public void save(GolfClub club);
 
 	

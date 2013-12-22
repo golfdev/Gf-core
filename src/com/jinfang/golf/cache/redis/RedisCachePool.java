@@ -75,8 +75,34 @@ public class RedisCachePool<T extends TBase> {
 		}
 		return null;
 	}
+	
 	public boolean set(String key, String value) {
 		return set(key, value, -1);
+	}
+	
+	public long setnx(String key, String value) {
+		checkNotNull(key);
+		checkNotNull(value);
+		boolean broken = false;
+		Jedis jedis = null;
+		try {
+			jedis = pool.getResource();
+			long ret = 0l;
+			ret = jedis.setnx(key, value);
+			return ret;
+		} catch (Exception e) {
+			broken = true;
+			e.printStackTrace();
+		} finally {
+			if (jedis != null) {
+				if (broken) {
+					pool.returnBrokenResource(jedis);
+				} else {
+					pool.returnResource(jedis);
+				}
+			}
+		}
+		return 0l;
 	}
 	public boolean set(String key, String value, int expire) {
 		checkNotNull(key);
