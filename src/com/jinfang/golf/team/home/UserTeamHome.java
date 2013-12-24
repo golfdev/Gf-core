@@ -209,9 +209,34 @@ public class UserTeamHome {
 		userTeamApplyDAO.save(apply);
 	}
 	
-//	public List<User> getTeamMemberListById(Integer id){
-//	    
-//	}
+
+	public List<UserTeamApply> getTeamApplyList(Integer teamId,Integer offset,Integer limit){
+		 List<UserTeamApply> applyList = userTeamApplyDAO.getApplyListByTeamId(teamId,offset,limit);
+		 List<Integer> userIdList = new ArrayList<Integer>();
+		 for(UserTeamApply apply:applyList){
+			 userIdList.add(apply.getUserId());
+		 }
+		 Map<Integer,User> userMap = userHome.getUserMapByIds(userIdList);
+		 
+		 for(UserTeamApply apply:applyList){
+			 if(userMap.containsKey(apply.getUserId())){
+				 apply.setUserName(userMap.get(apply.getUserId()).getUserName());
+			 }else{
+				 apply.setUserName("Golf球手");
+			 }
+		 }
+		 return applyList;
+	}
+	
+	public void updateApplyStatus(Integer teamId,Integer userId,Integer status){
+		userTeamApplyDAO.updateStatus(userId, teamId, status);
+		if(status==1){
+			UserTeamRelation relation = new UserTeamRelation();
+			relation.setUserId(userId);
+			relation.setTeamId(teamId);
+			userTeamRelationDAO.save(relation);
+		}
+	}
 	
 
 }

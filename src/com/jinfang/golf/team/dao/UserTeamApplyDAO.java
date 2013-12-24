@@ -14,12 +14,12 @@ public interface UserTeamApplyDAO {
 	//数据表字段
 	public static String field = "user_id,team_id,status,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_id,team_id,status,created_time) values(:1.userId,:1.teamId,:1.status,now())")
+	@SQL(" replace into " + table_name + "(user_id,team_id,status,created_time) values(:1.userId,:1.teamId,:1.status,now())")
 	public void save(UserTeamApply userTeamApply);
 	
 	
-	@SQL(" select user_id from " + table_name +" where team_id=:1")
-	public List<Integer> getUserIdListByTeamId(Integer teamId);
+	@SQL(" select "+field+" from " + table_name +" where team_id=:1 limit :2,:3")
+	public List<UserTeamApply> getApplyListByTeamId(Integer teamId,Integer offset,Integer limit);
 	
 	@SQL(" select count(user_id) from " + table_name +" where team_id=:1 and status=0")
 	public Integer getApplyCountByTeamId(Integer teamId);
