@@ -38,7 +38,7 @@ public class User implements Serializable{
 	private String description="";
 	
 	@Expose
-	private Double handicap=0.0;
+	private Integer handicap=0;
 	
 	@Expose
 	private Date createdTime;
@@ -139,13 +139,14 @@ public class User implements Serializable{
     }
 
 
-    public Double getHandicap() {
-        return handicap;
-    }
 
-    public void setHandicap(Double handicap) {
-        this.handicap = handicap;
-    }
+	public Integer getHandicap() {
+		return handicap;
+	}
+
+	public void setHandicap(Integer handicap) {
+		this.handicap = handicap;
+	}
 
 	public String getDescription() {
 		return description;

@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import com.jinfang.golf.group.manager.GroupManager;
+import com.jinfang.golf.group.model.Group;
 import com.jinfang.golf.team.dao.GolfTeamDAO;
 import com.jinfang.golf.team.dao.GolfTeamNoticeDAO;
 import com.jinfang.golf.team.dao.UserTeamApplyDAO;
@@ -38,18 +40,34 @@ public class UserTeamHome {
 	@Autowired
 	private GolfTeamNoticeDAO golfTeamNoticeDAO;
 	
+	@Autowired
+	private GroupManager groupManager;
+	
+	
+	
 	
 	public void removeFromTeam(Integer userId,Integer teamId){
+		GolfTeam team = getGolfTeamById(teamId);
 	    userTeamRelationDAO.deleteByUserIdAndTeamId(userId, teamId);
+	    groupManager.delUser(team.getGroupId(), userId);
 	}
 	
 	public void createGolfTeam(GolfTeam team){
+	    
+	    String groupName =team.getName()+"群";
+	    
+	    //创建群聊
+	    Group group = groupManager.createGroup(team.getCreatorId(), groupName,null, Group.TYPE_TEAM);
+	    team.setGroupId(group.getGroupId());
 	    int teamId =  golfTeamDAO.save(team).intValue();
 	    UserTeamRelation relation = new UserTeamRelation();
 	    relation.setUserId(team.getCreatorId());
 	    relation.setTeamId(teamId);
 	    relation.setIsLeader(1);
 	    userTeamRelationDAO.save(relation);
+	    
+	    
+	    
 	}
 	
 	public List<GolfTeam> getGolfTeamList(Integer userId,String city,Integer offset,Integer limit){
@@ -235,6 +253,9 @@ public class UserTeamHome {
 			relation.setUserId(userId);
 			relation.setTeamId(teamId);
 			userTeamRelationDAO.save(relation);
+			GolfTeam team = getGolfTeamById(teamId);
+		    groupManager.addUser(team.getGroupId(), userId);
+
 		}
 	}
 	

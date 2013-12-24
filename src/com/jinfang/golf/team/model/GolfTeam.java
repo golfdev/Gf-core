@@ -51,6 +51,9 @@ public class GolfTeam implements Serializable{
 	@Expose
 	private Integer canEdit=0;
 	
+	@Expose
+	private Integer groupId;
+	
 	private Date createdTime;
 
 	public Integer getId() {
@@ -182,6 +185,14 @@ public class GolfTeam implements Serializable{
 
 	public void setCanEdit(Integer canEdit) {
 		this.canEdit = canEdit;
+	}
+
+	public Integer getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(Integer groupId) {
+		this.groupId = groupId;
 	}
 	
 	
