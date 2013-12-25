@@ -19,8 +19,11 @@ public interface GolfAppointmentMemberDAO {
 	public void save(GolfAppointmentMember appointMember);
 
 	
-	@SQL(" select "+field+" from " + table_name + " where appoint_id=:1")
+	@SQL(" select user_id from " + table_name + " where appoint_id=:1")
 	public List<Integer> getUserIdListByAppointId(Integer appointId);
+	
+	@SQL(" delete from " + table_name + " where appoint_id=:1 and user_id=:2")
+	public void removeMember(Integer appointId,Integer userId);
 	
 
 }

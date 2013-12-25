@@ -39,13 +39,7 @@ public class GolfAppointment implements Serializable {
 	private String description;
     
     @Expose
-    private Integer parter1;
-    
-    @Expose
-    private Integer parter2;
-    
-    @Expose
-    private Integer parter3;
+    private String city;
 	
     @Expose
 	private List<User> userList;
@@ -149,29 +143,14 @@ public class GolfAppointment implements Serializable {
         this.userList = userList;
     }
 
-    public Integer getParter1() {
-        return parter1;
-    }
 
-    public void setParter1(Integer parter1) {
-        this.parter1 = parter1;
-    }
+	public String getCity() {
+		return city;
+	}
 
-    public Integer getParter2() {
-        return parter2;
-    }
-
-    public void setParter2(Integer parter2) {
-        this.parter2 = parter2;
-    }
-
-    public Integer getParter3() {
-        return parter3;
-    }
-
-    public void setParter3(Integer parter3) {
-        this.parter3 = parter3;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 	
 	
 	
