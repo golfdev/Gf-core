@@ -9,6 +9,8 @@ public class GolfAppointment implements Serializable {
 	
 	private Integer clubId;
 	
+	private Integer creatorId;
+	
 	private Date appointTime;
 	
 	private Double avgPrice;
@@ -19,7 +21,7 @@ public class GolfAppointment implements Serializable {
 	
 	private Integer maxHandicap;
 	
-	private Integer privateSetting;
+	private Integer privateSetting; //0 公开 1 队友可见 2不公开
 	
 	private String description;
 	
@@ -104,6 +106,14 @@ public class GolfAppointment implements Serializable {
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
+
+    public Integer getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(Integer creatorId) {
+        this.creatorId = creatorId;
+    }
 	
 	
 	
