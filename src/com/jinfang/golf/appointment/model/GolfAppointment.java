@@ -2,29 +2,55 @@ package com.jinfang.golf.appointment.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.google.gson.annotations.Expose;
+import com.jinfang.golf.user.model.User;
 
 public class GolfAppointment implements Serializable {
 	
+    @Expose
 	private Integer id;
 	
+    @Expose
 	private Integer clubId;
 	
+    @Expose
 	private Integer creatorId;
 	
+    @Expose
 	private Date appointTime;
 	
+    @Expose
 	private Double avgPrice;
 	
+    @Expose
 	private Integer gender;
 	
+    @Expose
 	private Integer minHandicap;
 	
+    @Expose
 	private Integer maxHandicap;
 	
 	private Integer privateSetting; //0 公开 1 队友可见 2不公开
 	
+    @Expose
 	private String description;
+    
+    @Expose
+    private Integer parter1;
+    
+    @Expose
+    private Integer parter2;
+    
+    @Expose
+    private Integer parter3;
 	
+    @Expose
+	private List<User> userList;
+	
+    @Expose
 	private Date createdTime;
 
 	public Integer getId() {
@@ -113,6 +139,38 @@ public class GolfAppointment implements Serializable {
 
     public void setCreatorId(Integer creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public Integer getParter1() {
+        return parter1;
+    }
+
+    public void setParter1(Integer parter1) {
+        this.parter1 = parter1;
+    }
+
+    public Integer getParter2() {
+        return parter2;
+    }
+
+    public void setParter2(Integer parter2) {
+        this.parter2 = parter2;
+    }
+
+    public Integer getParter3() {
+        return parter3;
+    }
+
+    public void setParter3(Integer parter3) {
+        this.parter3 = parter3;
     }
 	
 	

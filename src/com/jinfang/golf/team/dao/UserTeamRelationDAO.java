@@ -33,6 +33,9 @@ public interface UserTeamRelationDAO {
 	@SQL(" select count(user_id) from " + table_name +" where team_id=:1")
 	public Integer getMemberCountByTeamId(Integer teamId);
 	
+	@SQL(" select user_id from " + table_name +" where team_id in (:1)")
+    public List<Integer> getMemberIdListByTeamIdList(List<Integer> teamIdList);
+	
 	
 	
 	

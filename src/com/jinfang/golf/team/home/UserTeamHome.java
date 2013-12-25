@@ -176,6 +176,11 @@ public class UserTeamHome {
 		return userHome.getUserListByIds(userIdList);
 	}
 	
+	public List<Integer> getMemberListByTeamIds(List<Integer> teamIds){
+        List<Integer> userIdList =  userTeamRelationDAO.getMemberIdListByTeamIdList(teamIds);
+        return userIdList;
+    }
+	
 	
 	public List<Integer> getTeamIdListByUid(Integer userId){
 		return userTeamRelationDAO.getByUserId(userId);
