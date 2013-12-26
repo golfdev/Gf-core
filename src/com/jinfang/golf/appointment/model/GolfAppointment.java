@@ -22,7 +22,7 @@ public class GolfAppointment implements Serializable {
 	private Date appointTime;
 	
     @Expose
-	private Double avgPrice;
+	private Integer avgPrice;
 	
     @Expose
 	private Integer gender;
@@ -71,13 +71,6 @@ public class GolfAppointment implements Serializable {
 		this.appointTime = appointTime;
 	}
 
-	public Double getAvgPrice() {
-		return avgPrice;
-	}
-
-	public void setAvgPrice(Double avgPrice) {
-		this.avgPrice = avgPrice;
-	}
 
 	public Integer getGender() {
 		return gender;
@@ -150,6 +143,14 @@ public class GolfAppointment implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public Integer getAvgPrice() {
+		return avgPrice;
+	}
+
+	public void setAvgPrice(Integer avgPrice) {
+		this.avgPrice = avgPrice;
 	}
 	
 	

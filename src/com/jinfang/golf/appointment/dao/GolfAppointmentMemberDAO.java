@@ -15,7 +15,7 @@ public interface GolfAppointmentMemberDAO {
 	//数据表字段
 	public static String field = "appoint_id,user_id,created_time";
 
-	@SQL(" insert into " + table_name + "(appoint_id,user_id,created_time)values(:1.appointId,:1.userId,now())")
+	@SQL(" replace into " + table_name + "(appoint_id,user_id,created_time)values(:1.appointId,:1.userId,now())")
 	public void save(GolfAppointmentMember appointMember);
 
 	
