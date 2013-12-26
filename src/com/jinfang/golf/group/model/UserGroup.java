@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class UserGroup implements Serializable {
+	public static int STATUS_NORMAL = 0;
+	// 隐藏，就是删除了
+	public static int STATUS_HIDE = 1;
+	
 	private static final long serialVersionUID = 5658936810963790871L;
 	private int groupId;
 	private int userId;

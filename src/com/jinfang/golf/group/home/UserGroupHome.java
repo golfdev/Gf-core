@@ -22,6 +22,13 @@ public class UserGroupHome {
 		}
 	}
 	
+	/**
+	 * 获取用户加入的群组列表
+	 * @param userId
+	 * @param offset
+	 * @param limit
+	 * @return 对于用户已经隐藏的则不返回
+	 */
 	public List<UserGroup> gets(int userId, int offset, int limit) {
 		try {
 			return dao.gets(userId, offset, limit);
@@ -44,5 +51,12 @@ public class UserGroupHome {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public void updateStatus(int userId, int groupId, int status) {
+		try {
+			dao.updateStatus(userId, groupId, status);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

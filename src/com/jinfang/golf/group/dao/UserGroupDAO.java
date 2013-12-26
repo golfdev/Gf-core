@@ -17,7 +17,7 @@ public interface UserGroupDAO {
 	@SQL(" insert ignore into " + table_name + "(" + field + ") values(:1.userId,:1.groupId,:1.time,:1.status)")
 	public void save(UserGroup userGroup);
 	
-	@SQL(" select " +  field + " from " + table_name + " where user_id=:1 order by time desc limit :2,:3")
+	@SQL(" select " +  field + " from " + table_name + " where user_id=:1 and status=0 order by time desc limit :2,:3")
 	public List<UserGroup> gets(int userId, int offset, int limit);
 	
 	@SQL(" delete from " + table_name + " where user_id=:1 and group_id=:2")
@@ -25,4 +25,7 @@ public interface UserGroupDAO {
 	
 	@SQL(" select " +  field + " from " + table_name + " where user_id=:1 and group_id=:2")
 	public UserGroup get(int userId, int groupId);
+	
+	@SQL(" update " + table_name + " set status=:3 where user_id=:1 and group_id=:2")
+	public void updateStatus(int userId, int groupId, int status);
 }

@@ -8,6 +8,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.jinfang.golf.cache.redis.RedisCacheManager;
+import com.jinfang.golf.cache.redis.RedisCachePool;
+import com.jinfang.golf.cache.redis.RedisConstants;
 import com.jinfang.golf.group.dao.GroupDAO;
 import com.jinfang.golf.group.home.GroupUserHome;
 import com.jinfang.golf.group.home.UserGroupHome;
@@ -82,6 +85,27 @@ public class GroupManager {
 		// TODO
 		int offset = 0, limit = 1000;
 		return groupUserHome.gets(groupId, offset, limit);
+	}
+	
+	public void updateUserGroupStatus(int userId, int groupId, int status) {
+		String key = userId + "_" + groupId;
+		RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
+		try {
+			// 删除的就先改数据库，然后存缓存
+			if (status == UserGroup.STATUS_HIDE) {
+				userGroupHome.updateStatus(userId, groupId, status);
+				pool.set(key, String.valueOf(status));
+			} else {
+				// 如果是改成normal，就读缓存来判断
+				Object obj = pool.get(key);
+				if (obj != null && Integer.parseInt(obj.toString()) == UserGroup.STATUS_HIDE) {
+					pool.del(key);
+					userGroupHome.updateStatus(userId, groupId, status);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * 获取两人群的ID
