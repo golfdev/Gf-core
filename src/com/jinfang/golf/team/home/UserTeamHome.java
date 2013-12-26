@@ -264,5 +264,14 @@ public class UserTeamHome {
 		}
 	}
 	
+	public void addMember(Integer teamId,Integer userId){
+	    UserTeamRelation relation = new UserTeamRelation();
+        relation.setUserId(userId);
+        relation.setTeamId(teamId);
+        userTeamRelationDAO.save(relation);
+        GolfTeam team = getGolfTeamById(teamId);
+        groupManager.addUser(team.getGroupId(), userId);
+	}
+	
 
 }
