@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,16 +40,26 @@ public class GroupManager {
 			set = new HashSet<Integer>();
 		}
 		set.add(createrId);
-		// TODO 两人的群组，如果重复创建，应该返回同个groupId
+		int userCount = set.size();
+		// 两人的群组，如果重复创建，应该返回同个groupId
+		int groupId = 0;
+		if (type == Group.TYPE_NORMAL && userCount == 2) {
+			groupId = getOnlyTwoUserGroup(set);
+		}
+		if (groupId <= 0) {
+			groupId = IdSeqUtils.getNextGroupId();
+		}
+		
 		Group group = new Group();
-		group.setGroupId(IdSeqUtils.getNextGroupId());
+		group.setGroupId(groupId);
 		group.setName(name);
 		group.setTime(new Date());
 		group.setType(type);
 		group.setCreaterId(createrId);
-		group.setUserCount(set.size());
+		group.setUserCount(userCount);
 		groupDAO.save(group);
 		addUser(group.getGroupId(), set);
+		
 		return group;
 	}
 	public void addUser(int groupId, Set<Integer> set) {
@@ -69,11 +80,12 @@ public class GroupManager {
 		updateGroupUserCount(groupId);
 		return userGroup;
 	}
-	private void updateGroupUserCount(int groupId) {
+	private int updateGroupUserCount(int groupId) {
 		int count = groupUserHome.getCount(groupId);
 		if (count > 0) {
 			groupDAO.updateCount(groupId, count);
 		}
+		return count;
 	}
 	// TODO 是否只有管理员才有权限删除？
 	public void delUser(int groupId, int userId) {
@@ -113,38 +125,55 @@ public class GroupManager {
 	 * @param uid2
 	 * @return
 	 */
-//	private int getOnlyTwoUserGroup(int uid1, int uid2) {
-//		String key = generateKey(uid1, uid2);
-//		try {
-//			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
-//			String obj = pool.get(key);
-//			if (StringUtils.isNotBlank(obj)) {
-//				return Integer.parseInt(obj);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return 0;
-//	}
-//	private void saveTwoUserGroup(int uid1, int uid2, int groupId) {
-//		String key = generateKey(uid1, uid2);
-//		try {
-//			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
-//			pool.set(key, String.valueOf(groupId));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	private void delTwoUserGroup(int uid1, int uid2) {
-//		String key = generateKey(uid1, uid2);
-//		try {
-//			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
-//			pool.del(key);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	private String generateKey(int uid1, int uid2) {
-//		return (uid1 < uid2) ? uid1 + "_" + uid2 : uid2 + "_" + uid1;
-//	}
+	private int getOnlyTwoUserGroup(Set<Integer> set) {
+		Integer[] ids = set.toArray(new Integer[2]);
+		int uid1 = ids[0], uid2 = ids[1];
+		if (uid1 <= 0 || uid2 <= 0) {
+			throw new IllegalArgumentException("userId must be positive");
+		}
+		// key = uidSmaller_uidBigger
+		String key = generateKey(uid1, uid2);
+		try {
+			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
+			String obj = pool.get(key);
+			int groupId = 0;
+			if (StringUtils.isNotBlank(obj)) {
+				groupId = Integer.parseInt(obj);
+			} else {
+				groupId = IdSeqUtils.getNextGroupId();
+				// 双向存，这样便于查询
+				pool.set(String.valueOf(groupId), key);
+				pool.set(key, String.valueOf(groupId));
+			}
+			return groupId;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException("Something wrong with Redis.");
+		}
+	}
+	// 删除两人微群。当往群里添加第三人时删除
+	public void delIfTwoUserGroup(int groupId) {
+		try {
+			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
+			String key = String.valueOf(groupId);
+			String uids = pool.get(key);
+			if (StringUtils.isNotBlank(uids)) {
+				// 两都删除
+				pool.del(key, uids);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	private String generateKey(int uid1, int uid2) {
+		return (uid1 < uid2) ? uid1 + "_" + uid2 : uid2 + "_" + uid1;
+	}
+	public static void main(String[] args) {
+		Set<Integer> set = new HashSet<Integer>();
+		set.add(1); set.add(2);
+		Integer[] ids = new Integer[2];
+		System.out.println(set);
+		System.out.println(set.toArray(ids)[1]);
+		System.out.println(ids[1]);
+	}
 }
