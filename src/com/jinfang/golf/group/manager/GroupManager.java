@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import com.jinfang.golf.cache.redis.RedisCacheManager;
 import com.jinfang.golf.cache.redis.RedisCachePool;
 import com.jinfang.golf.cache.redis.RedisConstants;
-import com.jinfang.golf.group.dao.GroupDAO;
+import com.jinfang.golf.group.home.GroupHome;
 import com.jinfang.golf.group.home.GroupUserHome;
 import com.jinfang.golf.group.home.UserGroupHome;
 import com.jinfang.golf.group.model.Group;
@@ -22,7 +22,7 @@ import com.jinfang.golf.utils.IdSeqUtils;
 @Component
 public class GroupManager {
 	@Autowired
-	private GroupDAO groupDAO;
+	private GroupHome groupHome;
 	@Autowired
 	private GroupUserHome groupUserHome;
 	@Autowired
@@ -44,7 +44,11 @@ public class GroupManager {
 		// 两人的群组，如果重复创建，应该返回同个groupId
 		int groupId = 0;
 		if (type == Group.TYPE_NORMAL && userCount == 2) {
-			groupId = getOnlyTwoUserGroup(set);
+			TwoUserGroup twoUserGroup = getOnlyTwoUserGroup(set);
+			groupId = twoUserGroup.groupId;
+			if (!twoUserGroup.isNewGroup) {
+				return groupHome.get(groupId);
+			}
 		}
 		if (groupId <= 0) {
 			groupId = IdSeqUtils.getNextGroupId();
@@ -57,7 +61,7 @@ public class GroupManager {
 		group.setType(type);
 		group.setCreaterId(createrId);
 		group.setUserCount(userCount);
-		groupDAO.save(group);
+		groupHome.save(group);
 		addUser(group.getGroupId(), set);
 		
 		return group;
@@ -83,7 +87,7 @@ public class GroupManager {
 	private int updateGroupUserCount(int groupId) {
 		int count = groupUserHome.getCount(groupId);
 		if (count > 0) {
-			groupDAO.updateCount(groupId, count);
+			groupHome.updateCount(groupId, count);
 		}
 		return count;
 	}
@@ -125,7 +129,7 @@ public class GroupManager {
 	 * @param uid2
 	 * @return
 	 */
-	private int getOnlyTwoUserGroup(Set<Integer> set) {
+	private TwoUserGroup getOnlyTwoUserGroup(Set<Integer> set) {
 		Integer[] ids = set.toArray(new Integer[2]);
 		int uid1 = ids[0], uid2 = ids[1];
 		if (uid1 <= 0 || uid2 <= 0) {
@@ -137,15 +141,20 @@ public class GroupManager {
 			RedisCachePool pool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_GROUP);
 			String obj = pool.get(key);
 			int groupId = 0;
+			TwoUserGroup group = new TwoUserGroup();
 			if (StringUtils.isNotBlank(obj)) {
 				groupId = Integer.parseInt(obj);
+				group.groupId = groupId;
+				group.isNewGroup = false;
 			} else {
 				groupId = IdSeqUtils.getNextGroupId();
 				// 双向存，这样便于查询
 				pool.set(String.valueOf(groupId), key);
 				pool.set(key, String.valueOf(groupId));
+				group.groupId = groupId;
+				group.isNewGroup = true;
 			}
-			return groupId;
+			return group;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException("Something wrong with Redis.");
@@ -167,6 +176,10 @@ public class GroupManager {
 	}
 	private String generateKey(int uid1, int uid2) {
 		return (uid1 < uid2) ? uid1 + "_" + uid2 : uid2 + "_" + uid1;
+	}
+	private static class TwoUserGroup {
+		public int groupId;
+		public boolean isNewGroup;
 	}
 	public static void main(String[] args) {
 		Set<Integer> set = new HashSet<Integer>();
