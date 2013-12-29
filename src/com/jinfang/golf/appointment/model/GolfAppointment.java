@@ -14,6 +14,12 @@ public class GolfAppointment implements Serializable {
 	
     @Expose
 	private Integer clubId;
+    
+    @Expose
+    private String clubName;
+    
+    @Expose
+    private String clubLogo;
 	
     @Expose
 	private Integer creatorId;
@@ -151,6 +157,22 @@ public class GolfAppointment implements Serializable {
 
 	public void setAvgPrice(Integer avgPrice) {
 		this.avgPrice = avgPrice;
+	}
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
+
+	public String getClubLogo() {
+		return clubLogo;
+	}
+
+	public void setClubLogo(String clubLogo) {
+		this.clubLogo = clubLogo;
 	}
 	
 	
