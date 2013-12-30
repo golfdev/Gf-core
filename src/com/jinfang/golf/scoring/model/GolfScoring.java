@@ -1,4 +1,4 @@
-package com.jinfang.golf.appointment.model;
+package com.jinfang.golf.scoring.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -7,19 +7,13 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.jinfang.golf.user.model.User;
 
-public class GolfAppointment implements Serializable {
+public class GolfScoring implements Serializable {
 	
     @Expose
 	private Integer id;
 	
     @Expose
 	private Integer clubId;
-    
-    @Expose
-    private String clubName;
-    
-    @Expose
-    private String clubLogo;
 	
     @Expose
 	private Integer creatorId;
@@ -157,22 +151,6 @@ public class GolfAppointment implements Serializable {
 
 	public void setAvgPrice(Integer avgPrice) {
 		this.avgPrice = avgPrice;
-	}
-
-	public String getClubName() {
-		return clubName;
-	}
-
-	public void setClubName(String clubName) {
-		this.clubName = clubName;
-	}
-
-	public String getClubLogo() {
-		return clubLogo;
-	}
-
-	public void setClubLogo(String clubLogo) {
-		this.clubLogo = clubLogo;
 	}
 	
 	

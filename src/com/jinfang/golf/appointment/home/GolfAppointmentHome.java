@@ -10,6 +10,8 @@ import com.jinfang.golf.appointment.dao.GolfAppointmentDAO;
 import com.jinfang.golf.appointment.dao.GolfAppointmentMemberDAO;
 import com.jinfang.golf.appointment.model.GolfAppointment;
 import com.jinfang.golf.appointment.model.GolfAppointmentMember;
+import com.jinfang.golf.club.home.GolfClubHome;
+import com.jinfang.golf.club.model.GolfClub;
 import com.jinfang.golf.team.home.UserTeamHome;
 import com.jinfang.golf.user.home.UserHome;
 import com.jinfang.golf.user.model.User;
@@ -28,6 +30,9 @@ public class GolfAppointmentHome {
 
 	@Autowired
 	private UserHome userHome;
+	
+	@Autowired
+	private GolfClubHome golfClubHome;
 
 	public void createApponint(GolfAppointment appoint) {
 		int appointId = golfAppointmentDAO.save(appoint).intValue();
@@ -51,6 +56,9 @@ public class GolfAppointmentHome {
 						.getUserIdListByAppointId(appoint.getId());
 				List<User> userList = userHome.getUserListByIds(uidList);
 				appoint.setUserList(userList);
+				GolfClub club = golfClubHome.getGolfClubById(appoint.getClubId());
+				appoint.setClubName(club.getName());
+				appoint.setClubLogo(club.getLogo());
 			}
 			return appointList;
 		} else {
@@ -61,6 +69,9 @@ public class GolfAppointmentHome {
 						.getUserIdListByAppointId(appoint.getId());
 				List<User> userList = userHome.getUserListByIds(uidList);
 				appoint.setUserList(userList);
+				GolfClub club = golfClubHome.getGolfClubById(appoint.getClubId());
+				appoint.setClubName(club.getName());
+				appoint.setClubLogo(club.getLogo());
 			}
 			return appointList;
 
@@ -69,6 +80,9 @@ public class GolfAppointmentHome {
 
 	public GolfAppointment getGolfAppointment(Integer id) {
 		GolfAppointment appoint = golfAppointmentDAO.getGolfAppointment(id);
+		GolfClub club = golfClubHome.getGolfClubById(appoint.getClubId());
+		appoint.setClubName(club.getName());
+		appoint.setClubLogo(club.getLogo());
 		List<Integer> uidList = golfAppointmentMemberDAO
 				.getUserIdListByAppointId(appoint.getId());
 		List<User> userList = userHome.getUserListByIds(uidList);
