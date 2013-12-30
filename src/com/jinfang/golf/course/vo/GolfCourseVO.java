@@ -1,12 +1,12 @@
-package com.jinfang.golf.course.model;
+package com.jinfang.golf.course.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.google.gson.annotations.Expose;
+import com.jinfang.golf.course.model.GolfCoursePlayer;
 
-public class GolfCourse implements Serializable{
+public class GolfCourseVO implements Serializable{
 	
 	private Integer id;
 	

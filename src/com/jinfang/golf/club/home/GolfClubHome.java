@@ -1,11 +1,9 @@
 package com.jinfang.golf.club.home;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,11 +14,12 @@ import com.jinfang.golf.club.dao.GolfClubDAO;
 import com.jinfang.golf.club.dao.GolfClubOrderDAO;
 import com.jinfang.golf.club.dao.GolfClubOrderItemDAO;
 import com.jinfang.golf.club.dao.GolfClubWayItemDAO;
+import com.jinfang.golf.club.dao.GolfClubYardDAO;
 import com.jinfang.golf.club.model.GolfClub;
 import com.jinfang.golf.club.model.GolfClubOrder;
 import com.jinfang.golf.club.model.GolfClubOrderWay;
 import com.jinfang.golf.club.model.GolfClubWayItem;
-import com.jinfang.golf.constants.GolfConstant;
+import com.jinfang.golf.club.model.GolfClubYard;
 
 @Component
 public class GolfClubHome {
@@ -36,6 +35,9 @@ public class GolfClubHome {
 	
 	@Autowired
 	private GolfClubOrderItemDAO golfClubOrderItemDAO;
+	
+	@Autowired
+	private GolfClubYardDAO golfClubYardDAO;
 	
 	private RedisCachePool redisPool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_LOCK);
 	
@@ -98,6 +100,10 @@ public class GolfClubHome {
 				golfClubOrderItemDAO.save(item);
 			}
 		}
+	}
+	
+	public List<GolfClubYard> getGolfClubYardList(Integer clubId){
+		return golfClubYardDAO.getGolfClubYardList(clubId);
 	}
 	
 	

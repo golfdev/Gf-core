@@ -44,6 +44,14 @@ public class GolfClubYard implements Serializable{
 		this.holeNum = holeNum;
 	}
 
+	public Integer getParScore() {
+		return parScore;
+	}
+
+	public void setParScore(Integer parScore) {
+		this.parScore = parScore;
+	}
+
 	
 	
 }

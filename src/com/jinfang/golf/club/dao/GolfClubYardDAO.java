@@ -12,7 +12,7 @@ public interface GolfClubYardDAO {
 	//数据表名
 	public static String table_name = "golf_club_yard";
 	//数据表字段
-	public static String field = "club_id,hole_num,par_score,created_time";
+	public static String field = "hole_num,par_score";
 
 	@SQL(" insert into " + table_name + "( club_id,hole_num,par_score,created_time )values(:1.clubId,:1.holeNum,:1.parScore,now())")
 	public void save(GolfClubYard yard);

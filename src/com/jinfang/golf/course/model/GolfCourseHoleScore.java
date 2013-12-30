@@ -13,13 +13,15 @@ public class GolfCourseHoleScore implements Serializable{
     
     private Integer playerId;
     
+    private String playerName;
+    
     private Integer serialNum;
     
     private Integer parScore;
     
     private Integer totalScore;
     
-    private Integer putterSocre;
+    private Integer putterScore;
     
     private Integer subScore;
     
@@ -57,13 +59,6 @@ public class GolfCourseHoleScore implements Serializable{
 		this.totalScore = totalScore;
 	}
 
-	public Integer getPutterSocre() {
-		return putterSocre;
-	}
-
-	public void setPutterSocre(Integer putterSocre) {
-		this.putterSocre = putterSocre;
-	}
 
 	public Date getCreatedTime() {
 		return createdTime;
@@ -95,6 +90,22 @@ public class GolfCourseHoleScore implements Serializable{
 
 	public void setSerialNum(Integer serialNum) {
 		this.serialNum = serialNum;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	public Integer getPutterScore() {
+		return putterScore;
+	}
+
+	public void setPutterScore(Integer putterScore) {
+		this.putterScore = putterScore;
 	}
     
     
