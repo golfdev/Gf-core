@@ -49,7 +49,9 @@ public class UserTeamHome {
 	public void removeFromTeam(Integer userId,Integer teamId){
 		GolfTeam team = getGolfTeamById(teamId);
 	    userTeamRelationDAO.deleteByUserIdAndTeamId(userId, teamId);
-	    groupManager.delUser(team.getGroupId(), userId);
+	    if(teamId!=null){
+	        groupManager.delUser(team.getGroupId(), userId);
+	    }
 	}
 	
 	public void createGolfTeam(GolfTeam team){
