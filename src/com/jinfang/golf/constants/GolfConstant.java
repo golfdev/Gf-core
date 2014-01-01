@@ -14,6 +14,8 @@ public class GolfConstant {
     
     public static final String DEFAULT_HEAD_URL = "/head/default_man.png";
     
+    public static final String DEFAULT_CLUB_LOGO_URL = "/head/default_club_log.png";
+    
     public static final String DEFAULT_TEAM_LOGO_URL = "/logo/default_team_logo.png";
 
     

@@ -8,17 +8,34 @@ import com.google.gson.annotations.Expose;
 
 public class GolfCourse implements Serializable{
 	
+	@Expose
 	private Integer id;
 	
+	@Expose
 	private Integer clubId;
+	
+	@Expose
+	private String clubName;
+	
+	@Expose
+	private String clubLogo;
 	
 	private String playerSetting;
 	
+	@Expose
 	private List<GolfCoursePlayer> playerList;
 	
+	@Expose
 	private Integer isLive;
 	
+	@Expose
+	private Integer creatorId;
+	
+	@Expose
 	private Date createdTime;
+	
+	@Expose
+	private Integer viewCount = 0;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +85,38 @@ public class GolfCourse implements Serializable{
 
 	public void setPlayerList(List<GolfCoursePlayer> playerList) {
 		this.playerList = playerList;
+	}
+
+	public Integer getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(Integer creatorId) {
+		this.creatorId = creatorId;
+	}
+
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
+	}
+
+	public String getClubName() {
+		return clubName;
+	}
+
+	public void setClubName(String clubName) {
+		this.clubName = clubName;
+	}
+
+	public String getClubLogo() {
+		return clubLogo;
+	}
+
+	public void setClubLogo(String clubLogo) {
+		this.clubLogo = clubLogo;
 	}
 
     	

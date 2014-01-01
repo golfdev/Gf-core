@@ -1,6 +1,7 @@
 package com.jinfang.golf.club.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import net.paoding.rose.jade.annotation.DAO;
 import net.paoding.rose.jade.annotation.SQL;
@@ -24,5 +25,8 @@ public interface GolfClubDAO {
 	
 	@SQL(" select "+field+" from " + table_name + " where id=:1 ")
 	public GolfClub getGolfClub(Integer id);
+	
+	@SQL(" select "+field+" from " + table_name + " where id in (:1) ")
+	public Map<Integer,GolfClub> getGolfClubMap(List<Integer> clubIds);
 
 }

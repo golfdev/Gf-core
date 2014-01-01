@@ -2,6 +2,7 @@ package com.jinfang.golf.club.home;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,12 @@ public class GolfClubHome {
 	
 	
 	public GolfClub getGolfClubById(Integer id){
-		return golfClubDAO.getGolfClub(id);
+		GolfClub club =  golfClubDAO.getGolfClub(id);
+		return club;	
+    }
+	
+	public Map<Integer,GolfClub> getGolfClubMap(List<Integer> clubIds){
+		return golfClubDAO.getGolfClubMap(clubIds);
 	}
 	
 

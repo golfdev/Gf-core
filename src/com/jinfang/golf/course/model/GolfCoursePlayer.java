@@ -3,16 +3,26 @@ package com.jinfang.golf.course.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.google.gson.annotations.Expose;
+
 public class GolfCoursePlayer implements Serializable {
+	
 	
 	private Integer courseId;
 	
+	@Expose
 	private Integer playerId;
 	
+	@Expose
 	private String playerName;
 	
+	@Expose
+	private String playerHead;
+	
+	@Expose
 	private Integer teeNum;
 	
+	@Expose
 	private Integer serialNum;
 	
 	private Date createdTime;
@@ -63,6 +73,14 @@ public class GolfCoursePlayer implements Serializable {
 
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
+	}
+
+	public String getPlayerHead() {
+		return playerHead;
+	}
+
+	public void setPlayerHead(String playerHead) {
+		this.playerHead = playerHead;
 	}
 	
 	
