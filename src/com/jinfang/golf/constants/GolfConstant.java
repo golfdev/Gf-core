@@ -27,6 +27,8 @@ public class GolfConstant {
     public static final String FRIEND_COUNT_KEY = "friend_count_";
     public static final String FANS_COUNT_KEY = "fans_count_";
     
+    public static final String LIVE_VIEW_COUNT_KEY = "live_view_count_";
+    
     public static final String ORDER_WAY_LOCK = "order_way_lock_";
 
     private static String getRootDomain() {

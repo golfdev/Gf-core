@@ -7,11 +7,15 @@ import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.jinfang.golf.cache.redis.RedisCacheManager;
+import com.jinfang.golf.cache.redis.RedisCachePool;
+import com.jinfang.golf.cache.redis.RedisConstants;
 import com.jinfang.golf.club.home.GolfClubHome;
 import com.jinfang.golf.club.model.GolfClub;
 import com.jinfang.golf.constants.GolfConstant;
@@ -41,6 +45,9 @@ public class GolfCourseHome {
 
 	@Autowired
 	private GolfClubHome golfClubHome;
+	
+	private RedisCachePool redisPool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_COUNT);
+
 
 	public void saveCourse(GolfCourse course) {
 		Gson gson = new Gson();
@@ -225,11 +232,22 @@ public class GolfCourseHome {
 					}
 				}
 				course.setPlayerList(playerList);
+				course.setViewCount(getViewCount(course.getId()));
 			}
 
 		}
 
 		return courseList;
+	}
+	
+	public Integer incViewCount(Integer courseId){
+		String key = GolfConstant.LIVE_VIEW_COUNT_KEY+courseId;
+		return ((Long) redisPool.incrby(key, 1)).intValue();
+	}
+	
+	public Integer getViewCount(Integer courseId){
+		String key = GolfConstant.LIVE_VIEW_COUNT_KEY+courseId;
+		return  NumberUtils.toInt(redisPool.get(key),0);
 	}
 
 }
