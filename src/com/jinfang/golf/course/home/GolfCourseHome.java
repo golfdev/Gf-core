@@ -68,6 +68,10 @@ public class GolfCourseHome {
 	public void saveHoleScore(GolfCourseHoleScore holeScore) {
 		golfCourseHoleScoreDAO.save(holeScore);
 	}
+	
+	public void updateLiveStatus(Integer courseId,Integer isLive){
+		golfCourseDAO.changeLiveStatus(courseId,isLive);
+	}
 
 	public GolfCourse getGolfCourseById(Integer id) {
 		GolfCourse course = golfCourseDAO.getGolfCourseById(id);

@@ -28,4 +28,8 @@ public interface GolfCourseDAO {
 	
 	@SQL(" select " +  field + " from " + table_name + " where is_live=1 limit :1,:2")
 	public List<GolfCourse> getLiveCourseList(Integer offset,Integer limit);
+	
+	
+	@SQL(" update " + table_name + " set is_live=:2 where id=:1")
+	public void changeLiveStatus(Integer courseId,Integer isLive);
 }
