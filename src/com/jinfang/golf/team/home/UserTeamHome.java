@@ -272,7 +272,7 @@ public class UserTeamHome {
         relation.setTeamId(teamId);
         userTeamRelationDAO.save(relation);
         GolfTeam team = getGolfTeamById(teamId);
-        if(team!=null){
+        if(team!=null&&team.getGroupId()!=null){
             groupManager.addUser(team.getGroupId(), userId);
         }
 	}
