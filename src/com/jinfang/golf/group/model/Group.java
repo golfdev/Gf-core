@@ -9,7 +9,7 @@ import com.jinfang.golf.constants.GolfConstant;
 public class Group implements Serializable {
 	public static final int TYPE_TEAM = 0; // 球队的微群
 	public static final int TYPE_NORMAL = 1; // 普通的微群
-	public static final String DEFAULT_LOGO = GolfConstant.IMAGE_DOMAIN + "/chat/default_group_logo.jpg";
+	public static final String DEFAULT_LOGO = GolfConstant.IMAGE_DOMAIN + "/chat/default_group_logo.png";
 	private static final long serialVersionUID = -8192799575587504840L;
 	@Expose
 	private int groupId;
