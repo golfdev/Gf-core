@@ -17,8 +17,11 @@ public interface UserTeamRelationDAO {
 	@SQL(" insert into " + table_name + "(user_id,team_id,is_leader,created_time) values(:1.userId,:1.teamId,:1.isLeader,now())")
 	public void save(UserTeamRelation userTeamRelation);
 	
-	@SQL(" select team_id from " + table_name +" where user_id=:1")
+	@SQL(" select team_id from " + table_name +" where user_id=:1 order by created_time desc")
 	public List<Integer> getByUserId(Integer userId);
+	
+	@SQL(" select team_id from " + table_name +" where user_id=:1 order by created_time desc limit :2,:3")
+	public List<Integer> getByUserIdAndPage(Integer userId,Integer offset,Integer limit);
 	
 	@SQL(" select team_id from " + table_name +" where user_id=:1 and is_leader=0 order by created_time desc limit :2,:3")
 	public List<Integer> getJoinedByUserIdAndPage(Integer userId,Integer offset,Integer limit);

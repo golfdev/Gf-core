@@ -188,6 +188,21 @@ public class UserTeamHome {
 		return userTeamRelationDAO.getByUserId(userId);
 	}
 	
+	public List<Integer> getTeamIdListByUidAndPage(Integer userId,Integer offset,Integer limit){
+		return userTeamRelationDAO.getByUserIdAndPage(userId,offset,limit);
+	}
+	
+	public List<GolfTeam> getTeamListByUid(Integer userId,Integer offset,Integer limit){
+		List<Integer> teamIdList = getTeamIdListByUidAndPage(userId,offset,limit);
+		if(CollectionUtils.isEmpty(teamIdList)){
+			return null;
+		}else{
+			List<GolfTeam> teamList = getTeamListByIds(teamIdList);
+			return teamList;
+		}
+		
+	}
+	
 	public List<Integer> getJoinedTeamIdListByUidAndPage(Integer userId,Integer offset,Integer limit){
 		return userTeamRelationDAO.getJoinedByUserIdAndPage(userId,offset,limit);
 	}
