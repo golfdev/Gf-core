@@ -18,7 +18,7 @@ public interface UserDAO {
 
 	public static String field_private = "id,user_name,gender,head_url,play_age,handicap,description,status,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_name,password,phone,status,created_time) values(:1.userName,:1.passWord,:1.phone,:1.status,now())")
+	@SQL(" insert into " + table_name + "(user_name,password,phone,status,city,created_time) values(:1.userName,:1.passWord,:1.phone,:1.status,:1.city,now())")
 	public Identity save(User user);
 	
 	@SQL(" select " + field + " from " + table_name +" where email=:1")
