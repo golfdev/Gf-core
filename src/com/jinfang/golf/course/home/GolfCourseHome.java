@@ -19,10 +19,12 @@ import com.jinfang.golf.cache.redis.RedisConstants;
 import com.jinfang.golf.club.home.GolfClubHome;
 import com.jinfang.golf.club.model.GolfClub;
 import com.jinfang.golf.constants.GolfConstant;
+import com.jinfang.golf.course.dao.GolfCourseCommentDAO;
 import com.jinfang.golf.course.dao.GolfCourseDAO;
 import com.jinfang.golf.course.dao.GolfCourseHoleScoreDAO;
 import com.jinfang.golf.course.dao.GolfCoursePlayerDAO;
 import com.jinfang.golf.course.model.GolfCourse;
+import com.jinfang.golf.course.model.GolfCourseComment;
 import com.jinfang.golf.course.model.GolfCourseHoleScore;
 import com.jinfang.golf.course.model.GolfCoursePlayer;
 import com.jinfang.golf.user.home.UserHome;
@@ -39,6 +41,9 @@ public class GolfCourseHome {
 
 	@Autowired
 	private GolfCoursePlayerDAO golfCoursePlayerDAO;
+	
+	@Autowired
+	private GolfCourseCommentDAO golfCourseCommentDAO;
 
 	@Autowired
 	private UserHome userHome;
@@ -252,6 +257,41 @@ public class GolfCourseHome {
 	public Integer getViewCount(Integer courseId){
 		String key = GolfConstant.LIVE_VIEW_COUNT_KEY+courseId;
 		return  NumberUtils.toInt(redisPool.get(key),0);
+	}
+	
+	public Integer saveComment(GolfCourseComment comment){
+		return golfCourseCommentDAO.save(comment).intValue();
+	}
+	
+	public List<GolfCourseComment> getCommentList(Integer courseId,Integer offset,Integer limit){
+		List<GolfCourseComment> commentList = golfCourseCommentDAO.getGolfCourseCommentList(courseId, offset, limit);
+		
+		if(CollectionUtils.isNotEmpty(commentList)){
+			List<Integer> userIdList = new ArrayList<Integer>();
+			for(GolfCourseComment comment:commentList){
+				userIdList.add(comment.getUserId());
+			}
+			
+			Map<Integer,User> userMap = userHome.getUserMapByIds(userIdList);
+			for(GolfCourseComment comment:commentList){
+				if(userMap.containsKey(comment.getUserId())){
+					User user = userMap.get(comment.getUserId());
+					comment.setUserName(user.getUserName());
+					
+					if (StringUtils.isBlank(user.getHeadUrl())) {
+						comment.setUserHead(GolfConstant.IMAGE_DOMAIN
+								+ GolfConstant.DEFAULT_HEAD_URL);
+					} else {
+						comment.setUserHead(GolfConstant.IMAGE_DOMAIN
+								+ user.getHeadUrl());
+					}
+                }
+			}
+		}
+		
+		return commentList;
+		
+		
 	}
 
 }
