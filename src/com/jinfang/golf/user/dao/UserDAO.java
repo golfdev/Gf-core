@@ -14,9 +14,9 @@ public interface UserDAO {
 	//数据表名
 	public static String table_name = "user";
 	//数据表字段
-	public static String field = "id,user_name,password,email,phone,gender,head_url,play_age,handicap,description,status,created_time";	
+	public static String field = "id,user_name,password,city,email,phone,gender,head_url,play_age,handicap,description,status,created_time";	
 
-	public static String field_private = "id,user_name,gender,head_url,play_age,handicap,description,status,created_time";	
+	public static String field_private = "id,user_name,city,gender,head_url,play_age,handicap,description,status,created_time";	
 
 	@SQL(" insert into " + table_name + "(user_name,password,phone,status,city,created_time) values(:1.userName,:1.passWord,:1.phone,:1.status,:1.city,now())")
 	public Identity save(User user);

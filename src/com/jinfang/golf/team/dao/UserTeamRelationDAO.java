@@ -14,7 +14,7 @@ public interface UserTeamRelationDAO {
 	//数据表字段
 	public static String field = "user_id,team_id,is_leader,created_time";	
 
-	@SQL(" insert into " + table_name + "(user_id,team_id,is_leader,created_time) values(:1.userId,:1.teamId,:1.isLeader,now())")
+	@SQL(" replace into " + table_name + "(user_id,team_id,is_leader,created_time) values(:1.userId,:1.teamId,:1.isLeader,now())")
 	public void save(UserTeamRelation userTeamRelation);
 	
 	@SQL(" select team_id from " + table_name +" where user_id=:1 order by created_time desc")
