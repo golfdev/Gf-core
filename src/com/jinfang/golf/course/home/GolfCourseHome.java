@@ -54,7 +54,8 @@ public class GolfCourseHome {
 	private RedisCachePool redisPool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_COUNT);
 
 
-	public void saveCourse(GolfCourse course) {
+	public Integer saveCourse(GolfCourse course) {
+	    
 		Gson gson = new Gson();
 		String json = gson.toJson(course.getPlayerList());
 		course.setPlayerSetting(json);
@@ -68,6 +69,7 @@ public class GolfCourseHome {
 				golfCoursePlayerDAO.save(player);
 			}
 		}
+		return courseId;
 	}
 
 	public void saveHoleScore(GolfCourseHoleScore holeScore) {
