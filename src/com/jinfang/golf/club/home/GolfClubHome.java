@@ -42,10 +42,14 @@ public class GolfClubHome {
 	
 	private RedisCachePool redisPool = RedisCacheManager.getInstance().getRedisPool(RedisConstants.POOL_LOCK);
 	
-	
 	public GolfClub getGolfClubById(Integer id){
 		GolfClub club =  golfClubDAO.getGolfClub(id);
 		return club;	
+    }
+	
+	public GolfClub getGolfClubLoginInfoByEmail(String email){
+        GolfClub club =  golfClubDAO.getGolfCLubLoginInfo(email);
+        return club;    
     }
 	
 	public Map<Integer,GolfClub> getGolfClubMap(List<Integer> clubIds){
@@ -98,6 +102,10 @@ public class GolfClubHome {
 		}
 		
 		return true;
+	}
+	
+	public Integer registerClub(GolfClub club){
+	    return golfClubDAO.save(club).intValue();
 	}
 	
 	public void batchSaveOrderItem(List<GolfClubOrderWay> itemList){

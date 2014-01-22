@@ -34,7 +34,7 @@ public class Passport {
 	public PassportTicket createInCookie(int userId, HttpServletResponse resp, Integer maxAge){
 		maxAge = (maxAge!=null ? maxAge : PassportTicket.DEFAULT_TICKET_LIFETIME);
 		PassportTicket ticket = createTicket(userId, maxAge);
-		CookieUtil.saveCookie(resp, "passport", toCookieValue(ticket), ".hunbola.com", "/", maxAge, false);
+		CookieUtil.saveCookie(resp, "passport", toCookieValue(ticket), ".13golf.com", "/", maxAge, false);
 		return ticket;
 	}
 	

@@ -15,16 +15,20 @@ public class GolfClub implements Serializable{
 	private Integer creatorId;
 	
 	@Expose
-	private String contacts;
+	private String contacts;//球场联系人
 	
 	@Expose
-	private String phone;
+	private String phone;//球场联系方式
 	
 	@Expose
-	private String address;
+	private String address;//球场地址
 	
 	@Expose
-	private String name;
+	private String name; //球场名字
+	
+	private String email; //球场登录邮箱
+	
+	private String password; //球场密码
 	
 	@Expose
 	private String logo;
@@ -40,7 +44,6 @@ public class GolfClub implements Serializable{
 	
 	@Expose
 	private Double unCentifyPrice;
-	
 	
 	@Expose
 	private String city;
@@ -184,5 +187,22 @@ public class GolfClub implements Serializable{
 		this.unCentifyPrice = unCentifyPrice;
 	}
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
 	
 }
