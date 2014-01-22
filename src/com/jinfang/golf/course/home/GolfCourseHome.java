@@ -91,6 +91,33 @@ public class GolfCourseHome {
 			Type type = new TypeToken<List<GolfCoursePlayer>>() {
 			}.getType();
 			List<GolfCoursePlayer> playerList = gson.fromJson(settings, type);
+			
+			List<Integer> userIdList = new ArrayList<Integer>();
+            for (GolfCoursePlayer player : playerList) {
+                userIdList.add(player.getPlayerId());
+            }
+            Map<Integer, User> userMap = userHome
+                    .getUserMapByIds(userIdList);
+            for (GolfCoursePlayer player : playerList) {
+                if (userMap.containsKey(player.getPlayerId())) {
+                    player.setPlayerHead(userMap.get(
+                            player.getPlayerId()).getHeadUrl());
+
+                    if (StringUtils.isNotBlank(userMap.get(
+                            player.getPlayerId()).getHeadUrl())) {
+
+                        player.setPlayerHead(GolfConstant.IMAGE_DOMAIN
+                                + userMap.get(player.getPlayerId())
+                                        .getHeadUrl());
+                    } else {
+                        player.setPlayerHead(GolfConstant.IMAGE_DOMAIN
+                                + GolfConstant.DEFAULT_HEAD_URL);
+                    }
+                }else{
+                    player.setPlayerHead(GolfConstant.IMAGE_DOMAIN
+                            + GolfConstant.DEFAULT_HEAD_URL);
+                }
+            }
 			course.setPlayerList(playerList);
 		}
 
