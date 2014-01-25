@@ -26,7 +26,7 @@ public interface GolfCourseDAO {
 	@SQL(" select " +  field + " from " + table_name + " where id = :1")
 	public GolfCourse getGolfCourseById(Integer courseId);
 	
-	@SQL(" select " +  field + " from " + table_name + " where is_live=1 limit :1,:2")
+	@SQL(" select " +  field + " from " + table_name + " where is_live=1 order by created_time desc limit :1,:2")
 	public List<GolfCourse> getLiveCourseList(Integer offset,Integer limit);
 	
 	
