@@ -118,12 +118,29 @@ public class GolfAppointmentHome {
 		List<Integer> uidList = golfAppointmentMemberDAO
 				.getUserIdListByAppointId(appoint.getId());
 		List<User> userList = userHome.getUserListByIds(uidList);
+		
+		for(User user:userList){
+			if (StringUtils.isNotBlank(user.getHeadUrl())) {
+				user.setHeadUrl(GolfConstant.IMAGE_DOMAIN
+						+ user.getHeadUrl());
+			} else {
+				user.setHeadUrl(GolfConstant.IMAGE_DOMAIN
+						+ GolfConstant.DEFAULT_HEAD_URL);
+			}
+		}
+		
 		appoint.setUserList(userList);
 		return appoint;
 	}
 
-	public void addParter(GolfAppointmentMember appointMember) {
-		golfAppointmentMemberDAO.save(appointMember);
+	public boolean addParter(GolfAppointmentMember appointMember) {
+		Integer count = golfAppointmentMemberDAO.getMemberCountByAppointId(appointMember.getAppointId());
+		if(count>=4){
+			return false;
+		}else{
+			golfAppointmentMemberDAO.save(appointMember);
+            return true;
+		}
 	}
 
 	public void removeParter(Integer appointId, Integer userId) {

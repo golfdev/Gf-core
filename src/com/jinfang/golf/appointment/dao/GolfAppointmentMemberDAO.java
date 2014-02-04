@@ -22,6 +22,9 @@ public interface GolfAppointmentMemberDAO {
 	@SQL(" select user_id from " + table_name + " where appoint_id=:1")
 	public List<Integer> getUserIdListByAppointId(Integer appointId);
 	
+	@SQL(" select count(user_id) from " + table_name + " where appoint_id=:1")
+	public Integer getMemberCountByAppointId(Integer appointId);
+	
 	@SQL(" delete from " + table_name + " where appoint_id=:1 and user_id=:2")
 	public void removeMember(Integer appointId,Integer userId);
 	
