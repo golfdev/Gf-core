@@ -40,7 +40,7 @@ public class GolfTeam implements Serializable{
 	private String description;
 	
 	@Expose
-	private Integer count;
+	private Integer memberCount;
 	
 	@Expose
 	private Integer isMember=0;
@@ -158,13 +158,6 @@ public class GolfTeam implements Serializable{
 		this.description = description;
 	}
 
-	public Integer getCount() {
-		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
-	}
 
 	public Integer getIsMember() {
 		return isMember;
@@ -204,6 +197,14 @@ public class GolfTeam implements Serializable{
 
 	public void setApplyCount(Integer applyCount) {
 		this.applyCount = applyCount;
+	}
+
+	public Integer getMemberCount() {
+		return memberCount;
+	}
+
+	public void setMemberCount(Integer memberCount) {
+		this.memberCount = memberCount;
 	}
 	
 	

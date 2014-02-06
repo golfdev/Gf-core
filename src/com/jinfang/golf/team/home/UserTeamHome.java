@@ -57,6 +57,8 @@ public class UserTeamHome {
 		if (teamId != null) {
 			groupManager.delUser(team.getGroupId(), userId);
 		}
+		String key = GolfConstant.TEAM_MEMBER_COUNT_KEY+teamId;
+		redisPool.incrby(key, -1);
 	}
 
 	public void createGolfTeam(GolfTeam team) {
@@ -98,6 +100,8 @@ public class UserTeamHome {
 				} else {
 					team.setIsMember(0);
 				}
+				String key = GolfConstant.TEAM_MEMBER_COUNT_KEY+team.getId();
+				team.setMemberCount(NumberUtils.toInt(redisPool.get(key)));
                 team.setLogo(GolfConstant.IMAGE_DOMAIN + team.getLogo());
 			}
 		}
@@ -117,7 +121,10 @@ public class UserTeamHome {
 		List<GolfTeam> result = new ArrayList<GolfTeam>();
 		for (Integer id : teamIds) {
 			if (teamMap.containsKey(id)) {
-				result.add(teamMap.get(id));
+				GolfTeam team = teamMap.get(id);
+				String memberKey = GolfConstant.TEAM_MEMBER_COUNT_KEY+team.getId();
+				team.setMemberCount(NumberUtils.toInt(redisPool.get(memberKey)));
+				result.add(team);
 			}
 		}
 		return result;
@@ -140,6 +147,8 @@ public class UserTeamHome {
 				GolfTeam team = teamMap.get(id);
 				String key = GolfConstant.TEAM_APPLY_COUNT_KEY+team.getId();
 				team.setApplyCount(NumberUtils.toInt(redisPool.get(key)));
+				String memberKey = GolfConstant.TEAM_MEMBER_COUNT_KEY+team.getId();
+				team.setMemberCount(NumberUtils.toInt(redisPool.get(memberKey)));
 				result.add(team);
 			}
 		}
@@ -319,6 +328,10 @@ public class UserTeamHome {
 			userTeamRelationDAO.save(relation);
 			GolfTeam team = getGolfTeamById(teamId);
 			groupManager.addUser(team.getGroupId(), userId);
+			
+			//更新成员数量
+			String memberKey = GolfConstant.TEAM_MEMBER_COUNT_KEY+teamId;
+			redisPool.incrby(memberKey, 1);
 		}
 		
 		String key = GolfConstant.TEAM_APPLY_COUNT_KEY+teamId;
@@ -326,6 +339,7 @@ public class UserTeamHome {
 		if(value<=0){
 			redisPool.set(key, "0");
 		}
+
 	}
 
 	public void addMember(Integer teamId, Integer userId) {
@@ -338,6 +352,8 @@ public class UserTeamHome {
 		if (team != null && team.getGroupId() != null) {
 			groupManager.addUser(team.getGroupId(), userId);
 		}
+		String key = GolfConstant.TEAM_MEMBER_COUNT_KEY+teamId;
+		redisPool.incrby(key, 1);
 	}
 
 }
