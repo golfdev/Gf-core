@@ -14,6 +14,9 @@ public class UserTeamApply implements Serializable{
 	private String userName;
 	
 	@Expose
+	private String userHead;
+	
+	@Expose
 	private Integer teamId;
 	
 	@Expose
@@ -60,6 +63,14 @@ public class UserTeamApply implements Serializable{
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getUserHead() {
+		return userHead;
+	}
+
+	public void setUserHead(String userHead) {
+		this.userHead = userHead;
 	}
 
 	

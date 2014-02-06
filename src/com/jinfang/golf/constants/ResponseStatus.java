@@ -4,6 +4,9 @@ public class ResponseStatus {
     
     public static final Integer OK = 200;
     public static final Integer NOT_LOGIN = 202;
+    
+    public static final Integer NEED_LOGIN = 203;
+
     public static final Integer NO_AUTH = 203;
 
 

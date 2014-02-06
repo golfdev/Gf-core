@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -99,7 +100,7 @@ public class Passport {
 	 */
 	public PassportTicket readInToken(String token){
 		PassportTicket result = null;
-		if(token!=null){
+		if(StringUtils.isNotBlank(token)){
 			PassportTicket ticket = valueOfCookieValue(token);
 			if(verifyTicket(ticket)){
 				result = ticket;

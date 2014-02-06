@@ -54,6 +54,9 @@ public class GolfTeam implements Serializable{
 	@Expose
 	private Integer groupId;
 	
+	@Expose
+	private Integer applyCount=0;
+	
 	private Date createdTime;
 
 	public Integer getId() {
@@ -193,6 +196,14 @@ public class GolfTeam implements Serializable{
 
 	public void setGroupId(Integer groupId) {
 		this.groupId = groupId;
+	}
+
+	public Integer getApplyCount() {
+		return applyCount;
+	}
+
+	public void setApplyCount(Integer applyCount) {
+		this.applyCount = applyCount;
 	}
 	
 	
