@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/activation-1.1.jar"/>
 	<classpathentry kind="lib" path="lib/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/commons-beanutils-1.7.0.jar"/>
@@ -68,6 +69,5 @@
 	<classpathentry kind="lib" path="lib/wstx-asl-3.2.7.jar"/>
 	<classpathentry kind="lib" path="lib/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="lib/zookeeper-3.4.5.jar"/>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
+	<classpathentry kind="output" path="bin"/>
 </classpath>
