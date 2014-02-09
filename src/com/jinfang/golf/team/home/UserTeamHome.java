@@ -75,6 +75,10 @@ public class UserTeamHome {
 		relation.setTeamId(teamId);
 		relation.setIsLeader(1);
 		userTeamRelationDAO.save(relation);
+		
+		//成员数+1
+		String key = GolfConstant.TEAM_MEMBER_COUNT_KEY+teamId;
+		redisPool.incrby(key, 1);
 
 	}
 

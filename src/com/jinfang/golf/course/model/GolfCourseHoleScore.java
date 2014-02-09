@@ -23,6 +23,8 @@ public class GolfCourseHoleScore implements Serializable{
     
     private Integer putterScore;
     
+    private Integer point;
+    
     private Integer subScore;
     
     private Date createdTime;
@@ -106,6 +108,14 @@ public class GolfCourseHoleScore implements Serializable{
 
 	public void setPutterScore(Integer putterScore) {
 		this.putterScore = putterScore;
+	}
+
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
 	}
     
     
